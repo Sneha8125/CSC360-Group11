@@ -53,7 +53,7 @@
 
                 <configuration>
                     <mainClass>
-                        com.example.geometricstyler.Main
+                        com.example.geometricStyler.Main
                     </mainClass>
                 </configuration>
             </plugin>

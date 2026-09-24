@@ -1,4 +1,4 @@
-package com.example.geometricstyler.ui;
+package com.example.geometricStyler.ui;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

@@ -1,7 +1,7 @@
-package com.example.geometricstyler;
+package com.example.geometricStyler;
 
-import com.example.geometricstyler.ui.ControlPanel;
-import com.example.geometricstyler.ui.PreviewPane;
+import com.example.geometricStyler.ui.ControlPanel;
+import com.example.geometricStyler.ui.PreviewPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
