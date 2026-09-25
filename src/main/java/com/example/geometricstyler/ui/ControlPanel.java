@@ -5,10 +5,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 public class ControlPanel extends VBox {
 
     private ComboBox<String> objectTypeComboBox;
+    private TextField xPositionField;
+    private TextField yPositionField;
 
     public ControlPanel() {
 
@@ -43,10 +47,19 @@ public class ControlPanel extends VBox {
         Label positionSection = new Label("POSITION");
         positionSection.getStyleClass().add("section-title");
 
-        Label positionPlaceholder =
-                new Label("Position controls will be added next.");
+        xPositionField = new TextField("0");
+        xPositionField.setPromptText("X");
+        xPositionField.setPrefWidth(100);
 
-        positionPlaceholder.getStyleClass().add("placeholder-label");
+        yPositionField = new TextField("0");
+        yPositionField.setPromptText("Y");
+        yPositionField.setPrefWidth(100);
+
+        HBox positionRow = new HBox(10);
+        positionRow.getChildren().addAll(
+        xPositionField,
+        yPositionField
+);
 
         // Transformation section
         Label transformationSection = new Label("TRANSFORMATION");
@@ -75,7 +88,7 @@ public class ControlPanel extends VBox {
                 objectTypeComboBox,
 
                 positionSection,
-                positionPlaceholder,
+                positionRow,
 
                 transformationSection,
                 transformationPlaceholder,
