@@ -6,7 +6,10 @@ import com.example.geometricStyler.model.GeometricObject;
 import com.example.geometricStyler.model.ObjectFactory;
 import com.example.geometricStyler.model.PolygonObject;
 import com.example.geometricStyler.model.RectangleObject;
+
+import com.example.geometricStyler.styling.EffectManager;
 import com.example.geometricStyler.styling.StyleManager;
+
 import com.example.geometricStyler.ui.ControlPanel;
 import com.example.geometricStyler.ui.PreviewPane;
 
@@ -22,39 +25,35 @@ public class Main extends Application {
     private GeometricObject currentObject;
 
     private ControlPanel controlPanel;
+
     private PreviewPane previewPane;
 
-    // Stage 4 styling manager
     private StyleManager styleManager;
+
+    private EffectManager effectManager;
+
+    // Preview boundaries
+    private static final double PREVIEW_WIDTH = 700;
+    private static final double PREVIEW_HEIGHT = 550;
 
     @Override
     public void start(Stage stage) {
 
-        // ---------------------------------------------------------
-        // MAIN LAYOUT
-        // ---------------------------------------------------------
-
         BorderPane root = new BorderPane();
 
-        // ---------------------------------------------------------
-        // CREATE UI SECTIONS
-        // ---------------------------------------------------------
-
         controlPanel = new ControlPanel();
+
         previewPane = new PreviewPane();
 
-        // Stage 4 styling manager
         styleManager = new StyleManager();
 
-        // ---------------------------------------------------------
-        // SCROLLABLE CONTROL PANEL
-        // ---------------------------------------------------------
+        effectManager = new EffectManager();
 
-        ScrollPane controlScrollPane = new ScrollPane(
-                controlPanel
-        );
+        ScrollPane controlScrollPane =
+                new ScrollPane(controlPanel);
 
         controlScrollPane.setFitToWidth(true);
+
         controlScrollPane.setFitToHeight(false);
 
         controlScrollPane.setHbarPolicy(
@@ -67,40 +66,22 @@ public class Main extends Application {
 
         controlScrollPane.setPrefWidth(370);
 
-        controlScrollPane.getStyleClass().add(
-                "control-scroll-pane"
-        );
-
-        // ---------------------------------------------------------
-        // PLACE UI SECTIONS
-        // ---------------------------------------------------------
+        controlScrollPane
+                .getStyleClass()
+                .add("control-scroll-pane");
 
         root.setLeft(controlScrollPane);
+
         root.setCenter(previewPane);
 
-        // ---------------------------------------------------------
-        // CREATE SCENE
-        // ---------------------------------------------------------
-
-        Scene scene = new Scene(
-                root,
-                1100,
-                700
-        );
-
-        // ---------------------------------------------------------
-        // LOAD CSS
-        // ---------------------------------------------------------
+        Scene scene =
+                new Scene(root, 1100, 700);
 
         scene.getStylesheets().add(
                 getClass()
                         .getResource("/style.css")
                         .toExternalForm()
         );
-
-        // ---------------------------------------------------------
-        // STAGE CONFIGURATION
-        // ---------------------------------------------------------
 
         stage.setTitle(
                 "Geometric Object Styler"
@@ -109,12 +90,8 @@ public class Main extends Application {
         stage.setScene(scene);
 
         stage.setMinWidth(900);
-        stage.setMinHeight(600);
 
-        // ---------------------------------------------------------
-        // STAGE 3
-        // INITIAL OBJECT + CONTROLS
-        // ---------------------------------------------------------
+        stage.setMinHeight(600);
 
         createInitialObject();
 
@@ -122,32 +99,30 @@ public class Main extends Application {
 
         setupTransformations();
 
-        // ---------------------------------------------------------
-        // STAGE 4.1
-        // STYLING CONTROLS
-        // ---------------------------------------------------------
-
         setupStyling();
+
+        setupEffects();
 
         stage.show();
     }
 
-    // =============================================================
-    // CREATE INITIAL OBJECT
-    // =============================================================
+    // =========================================================
+    // INITIAL OBJECT
+    // =========================================================
 
     private void createInitialObject() {
 
-        currentObject = ObjectFactory.create("Circle");
+        currentObject =
+                ObjectFactory.create("Circle");
 
         updateControlValues();
 
         updatePreview();
     }
 
-    // =============================================================
+    // =========================================================
     // OBJECT SELECTION
-    // =============================================================
+    // =========================================================
 
     private void setupObjectSelection() {
 
@@ -160,13 +135,28 @@ public class Main extends Application {
                                     .getObjectTypeComboBox()
                                     .getValue();
 
+                    if (type == null) {
+                        return;
+                    }
+
                     currentObject =
                             ObjectFactory.create(type);
 
-                    // Reset styling for the newly selected object
                     styleManager.reset(
                             currentObject.createNode()
                     );
+
+                    effectManager.reset(
+                            currentObject.createNode()
+                    );
+
+                    controlPanel
+                            .getDropShadowCheckBox()
+                            .setSelected(false);
+
+                    controlPanel
+                            .getGlowCheckBox()
+                            .setSelected(false);
 
                     updateControlValues();
 
@@ -174,225 +164,233 @@ public class Main extends Application {
                 });
     }
 
-    // =============================================================
+    // =========================================================
     // TRANSFORMATIONS
-    // =============================================================
+    // =========================================================
 
     private void setupTransformations() {
 
-        // ---------------------------------------------------------
-        // X POSITION
-        // ---------------------------------------------------------
-
         controlPanel
                 .getXPositionField()
-                .setOnAction(event -> updatePosition());
-
-        // ---------------------------------------------------------
-        // Y POSITION
-        // ---------------------------------------------------------
+                .setOnAction(event ->
+                        updatePosition());
 
         controlPanel
                 .getYPositionField()
-                .setOnAction(event -> updatePosition());
-
-        // ---------------------------------------------------------
-        // WIDTH
-        // ---------------------------------------------------------
+                .setOnAction(event ->
+                        updatePosition());
 
         controlPanel
                 .getWidthField()
-                .setOnAction(event -> updateDimensions());
-
-        // ---------------------------------------------------------
-        // HEIGHT
-        // ---------------------------------------------------------
+                .setOnAction(event ->
+                        updateDimensions());
 
         controlPanel
                 .getHeightField()
-                .setOnAction(event -> updateDimensions());
+                .setOnAction(event ->
+                        updateDimensions());
 
-        // ---------------------------------------------------------
-        // ROTATION
-        // ---------------------------------------------------------
-
+        // Rotation
         controlPanel
                 .getRotationSlider()
                 .valueProperty()
                 .addListener(
                         (obs, oldValue, newValue) -> {
 
-                            currentObject.setRotation(
-                                    newValue.doubleValue()
-                            );
+                    currentObject.setRotation(
+                            newValue.doubleValue()
+                    );
 
-                            refreshObject();
-                        }
-                );
+                    refreshObject();
+                });
 
-        // ---------------------------------------------------------
-        // SCALE X
-        // ---------------------------------------------------------
-
+        // Scale X
         controlPanel
                 .getScaleXSlider()
                 .valueProperty()
                 .addListener(
                         (obs, oldValue, newValue) -> {
 
-                            currentObject.setScaleX(
-                                    newValue.doubleValue()
-                            );
+                    double value =
+                            newValue.doubleValue();
 
-                            refreshObject();
-                        }
-                );
+                    if (value == 0) {
+                        value = 0.1;
+                    }
 
-        // ---------------------------------------------------------
-        // SCALE Y
-        // ---------------------------------------------------------
+                    currentObject.setScaleX(value);
 
+                    if (controlPanel
+                            .getKeepScaleUniform()
+                            .isSelected()) {
+
+                        currentObject.setScaleY(value);
+
+                        controlPanel
+                                .getScaleYSlider()
+                                .setValue(value);
+                    }
+
+                    refreshObject();
+                });
+
+        // Scale Y
         controlPanel
                 .getScaleYSlider()
                 .valueProperty()
                 .addListener(
                         (obs, oldValue, newValue) -> {
 
-                            currentObject.setScaleY(
-                                    newValue.doubleValue()
-                            );
+                    double value =
+                            newValue.doubleValue();
 
-                            refreshObject();
-                        }
-                );
+                    if (value == 0) {
+                        value = 0.1;
+                    }
 
-        // ---------------------------------------------------------
-        // TRANSLATE X
-        // ---------------------------------------------------------
+                    currentObject.setScaleY(value);
 
+                    if (controlPanel
+                            .getKeepScaleUniform()
+                            .isSelected()) {
+
+                        currentObject.setScaleX(value);
+
+                        controlPanel
+                                .getScaleXSlider()
+                                .setValue(value);
+                    }
+
+                    refreshObject();
+                });
+
+        // Translation X
         controlPanel
                 .getTranslateXSlider()
                 .valueProperty()
                 .addListener(
                         (obs, oldValue, newValue) -> {
 
-                            currentObject.setTranslateX(
-                                    newValue.doubleValue()
-                            );
+                    currentObject.setTranslateX(
+                            newValue.doubleValue()
+                    );
 
-                            refreshObject();
-                        }
-                );
+                    refreshObject();
+                });
 
-        // ---------------------------------------------------------
-        // TRANSLATE Y
-        // ---------------------------------------------------------
-
+        // Translation Y
         controlPanel
                 .getTranslateYSlider()
                 .valueProperty()
                 .addListener(
                         (obs, oldValue, newValue) -> {
 
-                            currentObject.setTranslateY(
-                                    newValue.doubleValue()
-                            );
+                    currentObject.setTranslateY(
+                            newValue.doubleValue()
+                    );
 
-                            refreshObject();
-                        }
-                );
+                    refreshObject();
+                });
 
-        // ---------------------------------------------------------
-        // CENTER
-        // ---------------------------------------------------------
-
+        // Center
         controlPanel
                 .getCenterButton()
                 .setOnAction(event -> {
 
-                    currentObject.setX(350);
-                    currentObject.setY(275);
+                    currentObject.setX(
+                            PREVIEW_WIDTH / 2
+                    );
+
+                    currentObject.setY(
+                            PREVIEW_HEIGHT / 2
+                    );
 
                     updatePositionFields();
 
                     refreshObject();
                 });
 
-        // ---------------------------------------------------------
-        // FLIP HORIZONTAL
-        // ---------------------------------------------------------
-
+        // Flip Horizontal
         controlPanel
                 .getFlipHButton()
                 .setOnAction(event -> {
 
                     currentObject.setScaleX(
-                            -currentObject.getScaleX()
+                            currentObject.getScaleX()
+                                    * -1
                     );
+
+                    controlPanel
+                            .getScaleXSlider()
+                            .setValue(
+                                    currentObject.getScaleX()
+                            );
 
                     refreshObject();
                 });
 
-        // ---------------------------------------------------------
-        // FLIP VERTICAL
-        // ---------------------------------------------------------
-
+        // Flip Vertical
         controlPanel
                 .getFlipVButton()
                 .setOnAction(event -> {
 
                     currentObject.setScaleY(
-                            -currentObject.getScaleY()
+                            currentObject.getScaleY()
+                                    * -1
                     );
+
+                    controlPanel
+                            .getScaleYSlider()
+                            .setValue(
+                                    currentObject.getScaleY()
+                            );
 
                     refreshObject();
                 });
 
-        // ---------------------------------------------------------
-        // RESET
-        // ---------------------------------------------------------
-
+        // Reset
         controlPanel
                 .getResetButton()
-                .setOnAction(event -> {
-
-                    String type =
-                            controlPanel
-                                    .getObjectTypeComboBox()
-                                    .getValue();
-
-                    currentObject =
-                            ObjectFactory.create(type);
-
-                    styleManager.reset(
-                            currentObject.createNode()
-                    );
-
-                    updateControlValues();
-
-                    updatePreview();
-                });
+                .setOnAction(event -> resetObject());
     }
 
-    // =============================================================
-    // STAGE 4.1 - STYLING
-    // =============================================================
+    // =========================================================
+    // STYLING
+    // =========================================================
 
     private void setupStyling() {
 
-        // ---------------------------------------------------------
-        // FILL COLOR
-        // ---------------------------------------------------------
-
+        // Solid fill color
         controlPanel
                 .getFillColorPicker()
                 .setOnAction(event -> {
 
-                    Node node = currentObject.createNode();
+                    applyFillColor();
 
-                    styleManager.setFillColor(
+                    updatePreview();
+                });
+
+        // Fill type
+        controlPanel
+                .getFillTypeComboBox()
+                .setOnAction(event -> {
+
+                    applyFillType();
+
+                    updatePreview();
+                });
+
+        // Gradient Color 1
+        controlPanel
+                .getGradientColor1Picker()
+                .setOnAction(event -> {
+
+                    Node node =
+                            currentObject.createNode();
+
+                    styleManager.setGradientColor1(
                             controlPanel
-                                    .getFillColorPicker()
+                                    .getGradientColor1Picker()
                                     .getValue(),
                             node
                     );
@@ -400,15 +398,31 @@ public class Main extends Application {
                     updatePreview();
                 });
 
-        // ---------------------------------------------------------
-        // BORDER COLOR
-        // ---------------------------------------------------------
+        // Gradient Color 2
+        controlPanel
+                .getGradientColor2Picker()
+                .setOnAction(event -> {
 
+                    Node node =
+                            currentObject.createNode();
+
+                    styleManager.setGradientColor2(
+                            controlPanel
+                                    .getGradientColor2Picker()
+                                    .getValue(),
+                            node
+                    );
+
+                    updatePreview();
+                });
+
+        // Border color
         controlPanel
                 .getBorderColorPicker()
                 .setOnAction(event -> {
 
-                    Node node = currentObject.createNode();
+                    Node node =
+                            currentObject.createNode();
 
                     styleManager.setStrokeColor(
                             controlPanel
@@ -420,37 +434,31 @@ public class Main extends Application {
                     updatePreview();
                 });
 
-        // ---------------------------------------------------------
-        // BORDER WIDTH
-        // ---------------------------------------------------------
-
+        // Border width
         controlPanel
                 .getBorderWidthSlider()
                 .valueProperty()
                 .addListener(
                         (obs, oldValue, newValue) -> {
 
-                            Node node =
-                                    currentObject.createNode();
+                    Node node =
+                            currentObject.createNode();
 
-                            styleManager.setStrokeWidth(
-                                    newValue.doubleValue(),
-                                    node
-                            );
+                    styleManager.setStrokeWidth(
+                            newValue.doubleValue(),
+                            node
+                    );
 
-                            updatePreview();
-                        }
-                );
+                    updatePreview();
+                });
 
-        // ---------------------------------------------------------
-        // BORDER STYLE
-        // ---------------------------------------------------------
-
+        // Border style
         controlPanel
                 .getBorderStyleComboBox()
                 .setOnAction(event -> {
 
-                    Node node = currentObject.createNode();
+                    Node node =
+                            currentObject.createNode();
 
                     styleManager.setStrokeStyle(
                             controlPanel
@@ -462,122 +470,237 @@ public class Main extends Application {
                     updatePreview();
                 });
 
-        // ---------------------------------------------------------
-        // OPACITY
-        // ---------------------------------------------------------
-
+        // Opacity
         controlPanel
                 .getOpacitySlider()
                 .valueProperty()
                 .addListener(
                         (obs, oldValue, newValue) -> {
 
-                            Node node =
-                                    currentObject.createNode();
+                    Node node =
+                            currentObject.createNode();
 
-                            styleManager.setOpacity(
-                                    newValue.doubleValue(),
-                                    node
-                            );
+                    styleManager.setOpacity(
+                            newValue.doubleValue(),
+                            node
+                    );
 
-                            updatePreview();
-                        }
-                );
+                    updatePreview();
+                });
 
-        // ---------------------------------------------------------
-        // APPLY
-        // ---------------------------------------------------------
-
+        // Apply
         controlPanel
                 .getApplyButton()
                 .setOnAction(event -> {
-
-                    applyCurrentStyle();
 
                     updatePreview();
                 });
     }
 
-    // =============================================================
-    // APPLY CURRENT STYLE
-    // =============================================================
+    // =========================================================
+    // EFFECTS
+    // =========================================================
 
-    private void applyCurrentStyle() {
+    private void setupEffects() {
 
-        Node node = currentObject.createNode();
+        controlPanel
+                .getDropShadowCheckBox()
+                .setOnAction(event -> {
 
-        styleManager.applyStyle(node);
+                    effectManager
+                            .setDropShadowEnabled(
+                                    controlPanel
+                                            .getDropShadowCheckBox()
+                                            .isSelected()
+                            );
 
-        updatePreview();
+                    updatePreview();
+                });
+
+        controlPanel
+                .getGlowCheckBox()
+                .setOnAction(event -> {
+
+                    effectManager
+                            .setGlowEnabled(
+                                    controlPanel
+                                            .getGlowCheckBox()
+                                            .isSelected()
+                            );
+
+                    updatePreview();
+                });
     }
 
-    // =============================================================
-    // UPDATE POSITION
-    // =============================================================
+    // =========================================================
+    // FILL
+    // =========================================================
+
+    private void applyFillColor() {
+
+        Node node =
+                currentObject.createNode();
+
+        styleManager.setFillColor(
+                controlPanel
+                        .getFillColorPicker()
+                        .getValue(),
+                node
+        );
+    }
+
+    private void applyFillType() {
+
+        Node node =
+                currentObject.createNode();
+
+        styleManager.setFillType(
+                controlPanel
+                        .getFillTypeComboBox()
+                        .getValue(),
+                node
+        );
+    }
+
+    // =========================================================
+    // POSITION VALIDATION
+    // =========================================================
 
     private void updatePosition() {
 
         try {
 
-            currentObject.setX(
+            double x =
                     Double.parseDouble(
                             controlPanel
                                     .getXPositionField()
                                     .getText()
-                    )
-            );
+                                    .trim()
+                    );
 
-            currentObject.setY(
+            double y =
                     Double.parseDouble(
                             controlPanel
                                     .getYPositionField()
                                     .getText()
+                                    .trim()
+                    );
+
+            if (!Double.isFinite(x)
+                    || !Double.isFinite(y)) {
+
+                updatePositionFields();
+
+                return;
+            }
+
+            currentObject.setX(
+                    clamp(
+                            x,
+                            0,
+                            PREVIEW_WIDTH
                     )
             );
 
+            currentObject.setY(
+                    clamp(
+                            y,
+                            0,
+                            PREVIEW_HEIGHT
+                    )
+            );
+
+            updatePositionFields();
+
             refreshObject();
 
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException exception) {
 
-            // Validation will be added later.
+            updatePositionFields();
         }
     }
 
-    // =============================================================
-    // UPDATE DIMENSIONS
-    // =============================================================
+    // =========================================================
+    // DIMENSION VALIDATION
+    // =========================================================
 
     private void updateDimensions() {
 
         try {
 
-            currentObject.setWidth(
+            double width =
                     Double.parseDouble(
                             controlPanel
                                     .getWidthField()
                                     .getText()
-                    )
-            );
+                                    .trim()
+                    );
 
-            currentObject.setHeight(
+            double height =
                     Double.parseDouble(
                             controlPanel
                                     .getHeightField()
                                     .getText()
-                    )
+                                    .trim()
+                    );
+
+            if (!Double.isFinite(width)
+                    || !Double.isFinite(height)
+                    || width <= 0
+                    || height <= 0) {
+
+                updateDimensionFields();
+
+                return;
+            }
+
+            width = clamp(
+                    width,
+                    10,
+                    PREVIEW_WIDTH
             );
+
+            height = clamp(
+                    height,
+                    10,
+                    PREVIEW_HEIGHT
+            );
+
+            currentObject.setWidth(width);
+
+            currentObject.setHeight(height);
+
+            updateDimensionFields();
 
             refreshObject();
 
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException exception) {
 
-            // Validation will be added later.
+            updateDimensionFields();
         }
     }
 
-    // =============================================================
+    // =========================================================
+    // CLAMP VALUE
+    // =========================================================
+
+    private double clamp(
+            double value,
+            double minimum,
+            double maximum) {
+
+        return Math.max(
+                minimum,
+                Math.min(
+                        maximum,
+                        value
+                )
+        );
+    }
+
+    // =========================================================
     // REFRESH OBJECT
-    // =============================================================
+    // =========================================================
 
     private void refreshObject() {
 
@@ -601,31 +724,116 @@ public class Main extends Application {
         updatePreview();
     }
 
-    // =============================================================
-    // UPDATE PREVIEW
-    // =============================================================
+    // =========================================================
+    // PREVIEW
+    // =========================================================
 
     private void updatePreview() {
+
+        if (currentObject == null) {
+            return;
+        }
 
         Node node =
                 currentObject.createNode();
 
-        // Apply current Stage 4 styling
         styleManager.applyStyle(node);
+
+        effectManager.applyEffects(node);
 
         previewPane.setObject(node);
     }
 
-    // =============================================================
+    // =========================================================
+    // RESET
+    // =========================================================
+
+    private void resetObject() {
+
+        String type =
+                controlPanel
+                        .getObjectTypeComboBox()
+                        .getValue();
+
+        if (type == null) {
+            type = "Circle";
+        }
+
+        currentObject =
+                ObjectFactory.create(type);
+
+        Node node =
+                currentObject.createNode();
+
+        styleManager.reset(node);
+
+        effectManager.reset(node);
+
+        // Reset effect checkboxes
+        controlPanel
+                .getDropShadowCheckBox()
+                .setSelected(false);
+
+        controlPanel
+                .getGlowCheckBox()
+                .setSelected(false);
+
+        // Reset style controls
+        controlPanel
+                .getFillTypeComboBox()
+                .setValue("Solid");
+
+        controlPanel
+                .getFillColorPicker()
+                .setValue(
+                        javafx.scene.paint.Color.LIGHTBLUE
+                );
+
+        controlPanel
+                .getGradientColor1Picker()
+                .setValue(
+                        javafx.scene.paint.Color.LIGHTBLUE
+                );
+
+        controlPanel
+                .getGradientColor2Picker()
+                .setValue(
+                        javafx.scene.paint.Color.DODGERBLUE
+                );
+
+        controlPanel
+                .getBorderColorPicker()
+                .setValue(
+                        javafx.scene.paint.Color.BLACK
+                );
+
+        controlPanel
+                .getBorderWidthSlider()
+                .setValue(3);
+
+        controlPanel
+                .getBorderStyleComboBox()
+                .setValue("Solid");
+
+        controlPanel
+                .getOpacitySlider()
+                .setValue(1.0);
+
+        updateControlValues();
+
+        updatePreview();
+    }
+
+    // =========================================================
     // UPDATE POSITION FIELDS
-    // =============================================================
+    // =========================================================
 
     private void updatePositionFields() {
 
         controlPanel
                 .getXPositionField()
                 .setText(
-                        String.valueOf(
+                        formatValue(
                                 currentObject.getX()
                         )
                 );
@@ -633,38 +841,22 @@ public class Main extends Application {
         controlPanel
                 .getYPositionField()
                 .setText(
-                        String.valueOf(
+                        formatValue(
                                 currentObject.getY()
                         )
                 );
     }
 
-    // =============================================================
-    // UPDATE CONTROL VALUES
-    // =============================================================
+    // =========================================================
+    // UPDATE DIMENSION FIELDS
+    // =========================================================
 
-    private void updateControlValues() {
-
-        controlPanel
-                .getXPositionField()
-                .setText(
-                        String.valueOf(
-                                currentObject.getX()
-                        )
-                );
-
-        controlPanel
-                .getYPositionField()
-                .setText(
-                        String.valueOf(
-                                currentObject.getY()
-                        )
-                );
+    private void updateDimensionFields() {
 
         controlPanel
                 .getWidthField()
                 .setText(
-                        String.valueOf(
+                        formatValue(
                                 currentObject.getWidth()
                         )
                 );
@@ -672,10 +864,21 @@ public class Main extends Application {
         controlPanel
                 .getHeightField()
                 .setText(
-                        String.valueOf(
+                        formatValue(
                                 currentObject.getHeight()
                         )
                 );
+    }
+
+    // =========================================================
+    // UPDATE CONTROLS
+    // =========================================================
+
+    private void updateControlValues() {
+
+        updatePositionFields();
+
+        updateDimensionFields();
 
         controlPanel
                 .getRotationSlider()
@@ -708,9 +911,27 @@ public class Main extends Application {
                 );
     }
 
-    // =============================================================
+    // =========================================================
+    // FORMAT VALUE
+    // =========================================================
+
+    private String formatValue(double value) {
+
+        if (value == Math.rint(value)) {
+            return String.valueOf(
+                    (int) value
+            );
+        }
+
+        return String.format(
+                "%.2f",
+                value
+        );
+    }
+
+    // =========================================================
     // MAIN
-    // =============================================================
+    // =========================================================
 
     public static void main(String[] args) {
 
