@@ -1,40 +1,165 @@
+/* =========================================================
+   ROOT
+   ========================================================= */
+
 .root {
-    -fx-background-color: #f5f6fa;
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f5f7fa;
 }
+
+
+/* =========================================================
+   CONTROL PANEL
+   ========================================================= */
 
 .control-panel {
     -fx-background-color: #ffffff;
-    -fx-border-color: #dcdde1;
-    -fx-border-width: 0 1 0 0;
-    -fx-pref-width: 300px;
+    -fx-border-color: #dfe3e8;
+    -fx-border-width: 0 1px 0 0;
 }
+
+
+/* =========================================================
+   SCROLL PANE
+   ========================================================= */
+
+.control-scroll-pane {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent;
+}
+
+.control-scroll-pane > .viewport {
+    -fx-background-color: #ffffff;
+}
+
+.control-scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+}
+
+
+/* =========================================================
+   PANEL TITLE
+   ========================================================= */
 
 .panel-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2f3640;
+    -fx-text-fill: #1f2937;
 }
+
+.panel-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+
+/* =========================================================
+   SECTION TITLES
+   ========================================================= */
 
 .section-title {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #353b48;
-}
-
-.placeholder-label {
     -fx-font-size: 12px;
-    -fx-text-fill: #718093;
-}
-
-.preview-pane {
-    -fx-background-color: #f5f6fa;
-}
-
-.preview-title {
-    -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: #7f8fa6;
+    -fx-text-fill: #374151;
+    -fx-padding: 8px 0 2px 0;
 }
+
+
+/* =========================================================
+   COMBO BOX
+   ========================================================= */
+
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.combo-box:hover {
+    -fx-border-color: #9ca3af;
+}
+
+
+/* =========================================================
+   TEXT FIELDS
+   ========================================================= */
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 7px;
+}
+
+.text-field:focused {
+    -fx-border-color: #6b7280;
+}
+
+
+/* =========================================================
+   COLOR PICKER
+   ========================================================= */
+
+.color-picker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+
+/* =========================================================
+   SLIDERS
+   ========================================================= */
+
+.slider {
+    -fx-padding: 4px 0 8px 0;
+}
+
+
+/* =========================================================
+   CHECK BOX
+   ========================================================= */
+
+.check-box {
+    -fx-text-fill: #374151;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.button {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #1f2937;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 12px;
+    -fx-font-weight: 500;
+}
+
+.button:hover {
+    -fx-background-color: #e5e7eb;
+}
+
+.button:pressed {
+    -fx-background-color: #d1d5db;
+}
+
+
+/* =========================================================
+   APPLY BUTTON
+   ========================================================= */
+
+.button.apply-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+}
+
 
 /* =========================================================
    CURRENT OBJECT INFORMATION
@@ -42,14 +167,56 @@
 
 .info-label {
     -fx-font-weight: bold;
-    -fx-min-width: 85px;
+    -fx-text-fill: #374151;
+    -fx-min-width: 90px;
 }
 
 .info-value {
-    -fx-text-fill: #555555;
+    -fx-text-fill: #6b7280;
 }
 
 .status-label {
     -fx-text-fill: #2e7d32;
     -fx-font-weight: bold;
+}
+
+
+/* =========================================================
+   PREVIEW AREA
+   ========================================================= */
+
+.preview-pane {
+    -fx-background-color: #f5f7fa;
+    -fx-padding: 30px;
+}
+
+.preview-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6b7280;
+}
+
+.object-preview {
+    -fx-background-color: #dbeafe;
+    -fx-border-color: #2563eb;
+    -fx-border-width: 3px;
+    -fx-border-radius: 90px;
+    -fx-background-radius: 90px;
+}
+
+.preview-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #9ca3af;
+}
+
+
+/* =========================================================
+   TOOLTIP
+   ========================================================= */
+
+.tooltip {
+    -fx-background-color: #1f2937;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-padding: 7px;
 }

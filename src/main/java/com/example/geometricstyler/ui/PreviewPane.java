@@ -3,23 +3,77 @@ package com.example.geometricStyler.ui;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class PreviewPane extends StackPane {
 
-    // Constructor
     public PreviewPane() {
 
-        // Apply CSS class
         getStyleClass().add("preview-pane");
 
-        // Preview area title
-        Label previewTitle = new Label("PREVIEW AREA");
-        previewTitle.getStyleClass().add("preview-title");
-
-        // Center the label
         setAlignment(Pos.CENTER);
 
-        // Add label
-        getChildren().add(previewTitle);
+        // ---------------------------------------------------------
+        // Preview heading
+        // ---------------------------------------------------------
+
+        Label previewTitle =
+                new Label("PREVIEW");
+
+        previewTitle.getStyleClass()
+                .add("preview-title");
+
+
+        // ---------------------------------------------------------
+        // Placeholder object
+        // ---------------------------------------------------------
+
+        StackPane objectPreview =
+                new StackPane();
+
+        objectPreview.setPrefSize(
+                180,
+                180
+        );
+
+        objectPreview.setMaxSize(
+                180,
+                180
+        );
+
+        objectPreview.getStyleClass()
+                .add("object-preview");
+
+
+        // ---------------------------------------------------------
+        // Preview information
+        // ---------------------------------------------------------
+
+        Label previewHint =
+                new Label(
+                        "Object preview area"
+                );
+
+        previewHint.getStyleClass()
+                .add("preview-hint");
+
+
+        VBox previewContent =
+                new VBox(15);
+
+        previewContent.setAlignment(
+                Pos.CENTER
+        );
+
+        previewContent.getChildren().addAll(
+                previewTitle,
+                objectPreview,
+                previewHint
+        );
+
+
+        getChildren().add(
+                previewContent
+        );
     }
 }

@@ -97,6 +97,7 @@ public class ControlPanel extends VBox {
 
         setSpacing(15);
         setPadding(new Insets(20));
+
         setAlignment(Pos.TOP_LEFT);
 
         getStyleClass().add("control-panel");
@@ -105,18 +106,33 @@ public class ControlPanel extends VBox {
         // TITLE
         // =====================================================
 
-        Label title = new Label("GEOMETRIC OBJECT STYLER");
-        title.getStyleClass().add("panel-title");
+        Label title =
+                new Label("GEOMETRIC OBJECT STYLER");
+
+        title.getStyleClass()
+                .add("panel-title");
+
+        Label subtitle =
+                new Label(
+                        "Select and customize a single geometric object"
+                );
+
+        subtitle.getStyleClass()
+                .add("panel-subtitle");
 
 
         // =====================================================
-        // OBJECT SECTION
+        // OBJECT
         // =====================================================
 
-        Label objectSection = new Label("OBJECT");
-        objectSection.getStyleClass().add("section-title");
+        Label objectSection =
+                new Label("OBJECT");
 
-        objectTypeComboBox = new ComboBox<>();
+        objectSection.getStyleClass()
+                .add("section-title");
+
+        objectTypeComboBox =
+                new ComboBox<>();
 
         objectTypeComboBox.getItems().addAll(
                 "Circle",
@@ -127,38 +143,52 @@ public class ControlPanel extends VBox {
         );
 
         objectTypeComboBox.setValue("Circle");
-        objectTypeComboBox.setMaxWidth(Double.MAX_VALUE);
-        objectTypeComboBox.setPromptText("Select Object");
+
+        objectTypeComboBox.setMaxWidth(
+                Double.MAX_VALUE
+        );
 
         objectTypeComboBox.setTooltip(
-                new Tooltip("Select the geometric object to style")
+                new Tooltip(
+                        "Select the geometric object to style"
+                )
         );
 
 
         // =====================================================
-        // POSITION SECTION
+        // POSITION
         // =====================================================
 
-        Label positionSection = new Label("POSITION");
-        positionSection.getStyleClass().add("section-title");
+        Label positionSection =
+                new Label("POSITION");
 
-        xPositionField = new TextField("0");
+        positionSection.getStyleClass()
+                .add("section-title");
+
+        xPositionField =
+                new TextField("0");
+
         xPositionField.setPromptText("X");
-        xPositionField.setPrefWidth(100);
 
-        yPositionField = new TextField("0");
+        yPositionField =
+                new TextField("0");
+
         yPositionField.setPromptText("Y");
-        yPositionField.setPrefWidth(100);
 
         xPositionField.setTooltip(
-                new Tooltip("Horizontal position of the object")
+                new Tooltip(
+                        "Horizontal position"
+                )
         );
 
         yPositionField.setTooltip(
-                new Tooltip("Vertical position of the object")
+                new Tooltip(
+                        "Vertical position"
+                )
         );
 
-        HBox positionRow = new HBox(10);
+        HBox positionRow =
+                new HBox(10);
 
         positionRow.getChildren().addAll(
                 xPositionField,
@@ -167,7 +197,7 @@ public class ControlPanel extends VBox {
 
 
         // =====================================================
-        // DIMENSIONS SECTION
+        // DIMENSIONS
         // =====================================================
 
         Label dimensionsSection =
@@ -176,23 +206,26 @@ public class ControlPanel extends VBox {
         dimensionsSection.getStyleClass()
                 .add("section-title");
 
-        widthField = new TextField("100");
-        widthField.setPromptText("Width");
-        widthField.setPrefWidth(100);
+        widthField =
+                new TextField("100");
 
-        heightField = new TextField("100");
+        widthField.setPromptText("Width");
+
+        heightField =
+                new TextField("100");
+
         heightField.setPromptText("Height");
-        heightField.setPrefWidth(100);
 
         widthField.setTooltip(
-                new Tooltip("Width of the selected object")
+                new Tooltip("Object width")
         );
 
         heightField.setTooltip(
-                new Tooltip("Height of the selected object")
+                new Tooltip("Object height")
         );
 
-        HBox dimensionsRow = new HBox(10);
+        HBox dimensionsRow =
+                new HBox(10);
 
         dimensionsRow.getChildren().addAll(
                 widthField,
@@ -201,7 +234,7 @@ public class ControlPanel extends VBox {
 
 
         // =====================================================
-        // TRANSFORMATION SECTION
+        // TRANSFORMATION
         // =====================================================
 
         Label transformationSection =
@@ -211,9 +244,7 @@ public class ControlPanel extends VBox {
                 .add("section-title");
 
 
-        // -------------------------
         // Rotation
-        // -------------------------
 
         Label rotationLabel =
                 new Label("Rotation");
@@ -229,32 +260,18 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        rotationSlider.setTooltip(
-                new Tooltip(
-                        "Rotate the object from 0 to 360 degrees"
-                )
-        );
 
-
-        // -------------------------
-        // Keep Scale Uniform
-        // -------------------------
+        // Keep uniform
 
         keepScaleUniform =
-                new CheckBox("Keep scale uniform");
+                new CheckBox(
+                        "Keep scale uniform"
+                );
 
         keepScaleUniform.setSelected(true);
 
-        keepScaleUniform.setTooltip(
-                new Tooltip(
-                        "Keep Scale X and Scale Y synchronized"
-                )
-        );
 
-
-        // -------------------------
         // Scale X
-        // -------------------------
 
         Label scaleXLabel =
                 new Label("Scale X");
@@ -270,16 +287,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        scaleXSlider.setTooltip(
-                new Tooltip(
-                        "Scale the object horizontally"
-                )
-        );
 
-
-        // -------------------------
         // Scale Y
-        // -------------------------
 
         Label scaleYLabel =
                 new Label("Scale Y");
@@ -295,16 +304,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        scaleYSlider.setTooltip(
-                new Tooltip(
-                        "Scale the object vertically"
-                )
-        );
 
-
-        // -------------------------
         // Translate X
-        // -------------------------
 
         Label translateXLabel =
                 new Label("Translate X");
@@ -320,16 +321,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        translateXSlider.setTooltip(
-                new Tooltip(
-                        "Move the object horizontally"
-                )
-        );
 
-
-        // -------------------------
         // Translate Y
-        // -------------------------
 
         Label translateYLabel =
                 new Label("Translate Y");
@@ -345,15 +338,9 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        translateYSlider.setTooltip(
-                new Tooltip(
-                        "Move the object vertically"
-                )
-        );
-
 
         // =====================================================
-        // APPEARANCE SECTION
+        // APPEARANCE
         // =====================================================
 
         Label appearanceSection =
@@ -363,9 +350,7 @@ public class ControlPanel extends VBox {
                 .add("section-title");
 
 
-        // -------------------------
-        // Fill Colour
-        // -------------------------
+        // Fill
 
         Label fillColorLabel =
                 new Label("Fill colour");
@@ -377,16 +362,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        fillColorPicker.setTooltip(
-                new Tooltip(
-                        "Choose the fill colour of the object"
-                )
-        );
 
-
-        // -------------------------
-        // Fill Type
-        // -------------------------
+        // Fill type
 
         Label fillTypeLabel =
                 new Label("Fill type");
@@ -406,16 +383,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        fillTypeComboBox.setTooltip(
-                new Tooltip(
-                        "Choose the type of fill"
-                )
-        );
 
-
-        // -------------------------
-        // Gradient Colour 1
-        // -------------------------
+        // Gradient 1
 
         Label gradientColor1Label =
                 new Label("Gradient colour 1");
@@ -427,16 +396,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        gradientColor1Picker.setTooltip(
-                new Tooltip(
-                        "Choose the first gradient colour"
-                )
-        );
 
-
-        // -------------------------
-        // Gradient Colour 2
-        // -------------------------
+        // Gradient 2
 
         Label gradientColor2Label =
                 new Label("Gradient colour 2");
@@ -448,16 +409,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        gradientColor2Picker.setTooltip(
-                new Tooltip(
-                        "Choose the second gradient colour"
-                )
-        );
 
-
-        // -------------------------
-        // Border Colour
-        // -------------------------
+        // Border
 
         Label borderColorLabel =
                 new Label("Border colour");
@@ -469,16 +422,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        borderColorPicker.setTooltip(
-                new Tooltip(
-                        "Choose the border colour"
-                )
-        );
 
-
-        // -------------------------
-        // Border Width
-        // -------------------------
+        // Border width
 
         Label borderWidthLabel =
                 new Label("Border width");
@@ -494,16 +439,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        borderWidthSlider.setTooltip(
-                new Tooltip(
-                        "Set the border width"
-                )
-        );
 
-
-        // -------------------------
-        // Border Style
-        // -------------------------
+        // Border style
 
         Label borderStyleLabel =
                 new Label("Border style");
@@ -523,16 +460,8 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        borderStyleComboBox.setTooltip(
-                new Tooltip(
-                        "Choose the border style"
-                )
-        );
 
-
-        // -------------------------
         // Opacity
-        // -------------------------
 
         Label opacityLabel =
                 new Label("Opacity");
@@ -548,15 +477,9 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        opacitySlider.setTooltip(
-                new Tooltip(
-                        "Set the object opacity"
-                )
-        );
-
 
         // =====================================================
-        // EFFECTS SECTION
+        // EFFECTS
         // =====================================================
 
         Label effectsSection =
@@ -565,29 +488,15 @@ public class ControlPanel extends VBox {
         effectsSection.getStyleClass()
                 .add("section-title");
 
-
         dropShadowCheckBox =
                 new CheckBox("Drop shadow");
-
-        dropShadowCheckBox.setTooltip(
-                new Tooltip(
-                        "Apply a drop shadow to the object"
-                )
-        );
-
 
         glowCheckBox =
                 new CheckBox("Glow");
 
-        glowCheckBox.setTooltip(
-                new Tooltip(
-                        "Apply a glow effect to the object"
-                )
-        );
-
 
         // =====================================================
-        // ACTIONS SECTION
+        // ACTIONS
         // =====================================================
 
         Label actionsSection =
@@ -597,10 +506,6 @@ public class ControlPanel extends VBox {
                 .add("section-title");
 
 
-        // -------------------------
-        // Center
-        // -------------------------
-
         centerButton =
                 new Button("Center object");
 
@@ -608,47 +513,12 @@ public class ControlPanel extends VBox {
                 Double.MAX_VALUE
         );
 
-        centerButton.setTooltip(
-                new Tooltip(
-                        "Move the object to the centre of the preview"
-                )
-        );
-
-
-        // -------------------------
-        // Flip H
-        // -------------------------
 
         flipHButton =
                 new Button("Flip H");
 
-        flipHButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
-
-        flipHButton.setTooltip(
-                new Tooltip(
-                        "Flip the object horizontally"
-                )
-        );
-
-
-        // -------------------------
-        // Flip V
-        // -------------------------
-
         flipVButton =
                 new Button("Flip V");
-
-        flipVButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
-
-        flipVButton.setTooltip(
-                new Tooltip(
-                        "Flip the object vertically"
-                )
-        );
 
 
         HBox flipButtons =
@@ -670,40 +540,14 @@ public class ControlPanel extends VBox {
         );
 
 
-        // -------------------------
-        // Apply
-        // -------------------------
-
         applyButton =
                 new Button("Apply");
 
-        applyButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
-
-        applyButton.setTooltip(
-                new Tooltip(
-                        "Apply the selected styling and transformations"
-                )
-        );
-
-
-        // -------------------------
-        // Reset
-        // -------------------------
+        applyButton.getStyleClass()
+        .add("apply-button");
 
         resetButton =
                 new Button("Reset");
-
-        resetButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
-
-        resetButton.setTooltip(
-                new Tooltip(
-                        "Reset the object controls to their default values"
-                )
-        );
 
 
         HBox finalActionButtons =
@@ -726,7 +570,7 @@ public class ControlPanel extends VBox {
 
 
         // =====================================================
-        // CURRENT OBJECT INFORMATION
+        // CURRENT OBJECT
         // =====================================================
 
         Label currentObjectSection =
@@ -769,10 +613,6 @@ public class ControlPanel extends VBox {
         currentStatusValue.getStyleClass()
                 .add("status-label");
 
-
-        // -------------------------
-        // Information Rows
-        // -------------------------
 
         HBox typeRow =
                 createInfoRow(
@@ -836,10 +676,34 @@ public class ControlPanel extends VBox {
 
 
         // =====================================================
-        // CONTROL LISTENERS
+        // LIVE INFORMATION LISTENERS
         // =====================================================
 
         objectTypeComboBox.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        xPositionField.textProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        yPositionField.textProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        widthField.textProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        heightField.textProperty()
                 .addListener(
                         (observable, oldValue, newValue) ->
                                 updateCurrentObjectInfo()
@@ -901,27 +765,23 @@ public class ControlPanel extends VBox {
 
 
         // =====================================================
-        // ADD ALL CONTROLS
+        // ADD CONTROLS
         // =====================================================
 
         getChildren().addAll(
 
-                // Title
                 title,
+                subtitle,
 
-                // Object
                 objectSection,
                 objectTypeComboBox,
 
-                // Position
                 positionSection,
                 positionRow,
 
-                // Dimensions
                 dimensionsSection,
                 dimensionsRow,
 
-                // Transformation
                 transformationSection,
 
                 rotationLabel,
@@ -941,7 +801,6 @@ public class ControlPanel extends VBox {
                 translateYLabel,
                 translateYSlider,
 
-                // Appearance
                 appearanceSection,
 
                 fillColorLabel,
@@ -968,20 +827,17 @@ public class ControlPanel extends VBox {
                 opacityLabel,
                 opacitySlider,
 
-                // Effects
                 effectsSection,
 
                 dropShadowCheckBox,
                 glowCheckBox,
 
-                // Actions
                 actionsSection,
 
                 centerButton,
                 flipButtons,
                 finalActionButtons,
 
-                // Current Object
                 currentObjectSection,
 
                 typeRow,
@@ -996,13 +852,12 @@ public class ControlPanel extends VBox {
                 statusRow
         );
 
-        // Initialize information display
         updateCurrentObjectInfo();
     }
 
 
     // =========================================================
-    // CREATE INFORMATION ROW
+    // INFORMATION ROW
     // =========================================================
 
     private HBox createInfoRow(
@@ -1036,43 +891,27 @@ public class ControlPanel extends VBox {
 
 
     // =========================================================
-    // UPDATE CURRENT OBJECT INFORMATION
+    // UPDATE INFORMATION
     // =========================================================
 
     private void updateCurrentObjectInfo() {
 
-        // Type
         currentTypeValue.setText(
                 objectTypeComboBox.getValue()
         );
 
-
-        // Position
-        String xPosition =
-                xPositionField.getText();
-
-        String yPosition =
-                yPositionField.getText();
-
         currentPositionValue.setText(
-                "X: " + xPosition +
-                "    Y: " + yPosition
+                "X: " + xPositionField.getText()
+                        + "    Y: "
+                        + yPositionField.getText()
         );
-
-
-        // Size
-        String width =
-                widthField.getText();
-
-        String height =
-                heightField.getText();
 
         currentSizeValue.setText(
-                width + " × " + height
+                widthField.getText()
+                        + " × "
+                        + heightField.getText()
         );
 
-
-        // Rotation
         currentRotationValue.setText(
                 String.format(
                         "%.0f°",
@@ -1080,8 +919,6 @@ public class ControlPanel extends VBox {
                 )
         );
 
-
-        // Scale
         currentScaleValue.setText(
                 String.format(
                         "X: %.1f    Y: %.1f",
@@ -1090,8 +927,6 @@ public class ControlPanel extends VBox {
                 )
         );
 
-
-        // Translation
         currentTranslationValue.setText(
                 String.format(
                         "X: %.0f    Y: %.0f",
@@ -1100,8 +935,6 @@ public class ControlPanel extends VBox {
                 )
         );
 
-
-        // Opacity
         currentOpacityValue.setText(
                 String.format(
                         "%.0f%%",
@@ -1109,8 +942,6 @@ public class ControlPanel extends VBox {
                 )
         );
 
-
-        // Border
         currentBorderValue.setText(
                 String.format(
                         "%.0f px, %s",
@@ -1119,14 +950,10 @@ public class ControlPanel extends VBox {
                 )
         );
 
-
-        // Fill
         currentFillValue.setText(
                 fillTypeComboBox.getValue()
         );
 
-
-        // Status
         currentStatusValue.setText(
                 "Ready"
         );

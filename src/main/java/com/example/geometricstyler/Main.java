@@ -14,60 +14,77 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        // Create the main layout
+        // ---------------------------------------------------------
+        // MAIN LAYOUT
+        // ---------------------------------------------------------
+
         BorderPane root = new BorderPane();
 
-        // Create UI sections
+        // ---------------------------------------------------------
+        // CREATE UI SECTIONS
+        // ---------------------------------------------------------
+
         ControlPanel controlPanel = new ControlPanel();
         PreviewPane previewPane = new PreviewPane();
 
         // ---------------------------------------------------------
-        // Create scrollable control panel
+        // SCROLLABLE CONTROL PANEL
         // ---------------------------------------------------------
 
         ScrollPane controlScrollPane = new ScrollPane();
 
         controlScrollPane.setContent(controlPanel);
 
-        // Allow the control panel to use the available width
         controlScrollPane.setFitToWidth(true);
-
-        // Keep the scrollbar available when the content is taller
-        // than the application window
         controlScrollPane.setFitToHeight(false);
 
-        // Remove horizontal scrolling
         controlScrollPane.setHbarPolicy(
                 ScrollPane.ScrollBarPolicy.NEVER
         );
 
-        // Show vertical scrollbar when needed
         controlScrollPane.setVbarPolicy(
                 ScrollPane.ScrollBarPolicy.AS_NEEDED
         );
 
-        // Set the width of the left control panel
         controlScrollPane.setPrefWidth(370);
 
+        controlScrollPane.getStyleClass()
+                .add("control-scroll-pane");
+
         // ---------------------------------------------------------
-        // Place sections in the BorderPane
+        // PLACE UI SECTIONS
         // ---------------------------------------------------------
 
         root.setLeft(controlScrollPane);
         root.setCenter(previewPane);
 
-        // Create scene
-        Scene scene = new Scene(root, 1100, 700);
+        // ---------------------------------------------------------
+        // CREATE SCENE
+        // ---------------------------------------------------------
 
-        // Load CSS
+        Scene scene = new Scene(
+                root,
+                1100,
+                700
+        );
+
+        // ---------------------------------------------------------
+        // LOAD CSS
+        // ---------------------------------------------------------
+
         scene.getStylesheets().add(
                 getClass()
                         .getResource("/style.css")
                         .toExternalForm()
         );
 
-        // Stage configuration
-        stage.setTitle("Geometric Object Styler");
+        // ---------------------------------------------------------
+        // STAGE CONFIGURATION
+        // ---------------------------------------------------------
+
+        stage.setTitle(
+                "Geometric Object Styler"
+        );
 
         stage.setScene(scene);
 
@@ -78,6 +95,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
         launch(args);
     }
 }
