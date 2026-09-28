@@ -958,4 +958,60 @@ public class ControlPanel extends VBox {
                 "Ready"
         );
     }
+    public ComboBox<String> getObjectTypeComboBox() {
+    return objectTypeComboBox;
+}
+
+public TextField getXPositionField() {
+    return xPositionField;
+}
+
+public TextField getYPositionField() {
+    return yPositionField;
+}
+
+public TextField getWidthField() {
+    return widthField;
+}
+
+public TextField getHeightField() {
+    return heightField;
+}
+
+public Slider getRotationSlider() {
+    return rotationSlider;
+}
+
+public Slider getScaleXSlider() {
+    return scaleXSlider;
+}
+
+public Slider getScaleYSlider() {
+    return scaleYSlider;
+}
+
+public Slider getTranslateXSlider() {
+    return translateXSlider;
+}
+
+public Slider getTranslateYSlider() {
+    return translateYSlider;
+}
+
+public Button getCenterButton() {
+    return centerButton;
+}
+
+public Button getFlipHButton() {
+    return flipHButton;
+}
+
+public Button getFlipVButton() {
+    return flipVButton;
+}
+
+public Button getResetButton() {
+    return resetButton;
+}
+
 }
