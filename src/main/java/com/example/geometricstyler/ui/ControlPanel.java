@@ -2,6 +2,7 @@ package com.example.geometricStyler.ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -14,18 +15,30 @@ import javafx.scene.layout.VBox;
 
 public class ControlPanel extends VBox {
 
-    // Object
+    // ---------------------------------------------------------
+    // OBJECT
+    // ---------------------------------------------------------
+
     private ComboBox<String> objectTypeComboBox;
 
-    // Position
+    // ---------------------------------------------------------
+    // POSITION
+    // ---------------------------------------------------------
+
     private TextField xPositionField;
     private TextField yPositionField;
 
-    // Dimensions
+    // ---------------------------------------------------------
+    // DIMENSIONS
+    // ---------------------------------------------------------
+
     private TextField widthField;
     private TextField heightField;
 
-    // Transformation
+    // ---------------------------------------------------------
+    // TRANSFORMATION
+    // ---------------------------------------------------------
+
     private Slider rotationSlider;
     private CheckBox keepScaleUniform;
     private Slider scaleXSlider;
@@ -33,12 +46,37 @@ public class ControlPanel extends VBox {
     private Slider translateXSlider;
     private Slider translateYSlider;
 
-    // Appearance
+    // ---------------------------------------------------------
+    // APPEARANCE
+    // ---------------------------------------------------------
+
     private ColorPicker fillColorPicker;
     private ComboBox<String> fillTypeComboBox;
+
+    private ColorPicker gradientColor1Picker;
+    private ColorPicker gradientColor2Picker;
+
     private ColorPicker borderColorPicker;
     private Slider borderWidthSlider;
     private ComboBox<String> borderStyleComboBox;
+    private Slider opacitySlider;
+
+    // ---------------------------------------------------------
+    // EFFECTS
+    // ---------------------------------------------------------
+
+    private CheckBox dropShadowCheckBox;
+    private CheckBox glowCheckBox;
+
+    // ---------------------------------------------------------
+    // ACTIONS
+    // ---------------------------------------------------------
+
+    private Button centerButton;
+    private Button flipHButton;
+    private Button flipVButton;
+    private Button applyButton;
+    private Button resetButton;
 
     public ControlPanel() {
 
@@ -48,17 +86,17 @@ public class ControlPanel extends VBox {
 
         getStyleClass().add("control-panel");
 
-        // ---------------------------------------------------------
+        // =====================================================
         // TITLE
-        // ---------------------------------------------------------
+        // =====================================================
 
         Label title = new Label("GEOMETRIC OBJECT STYLER");
         title.getStyleClass().add("panel-title");
 
 
-        // ---------------------------------------------------------
+        // =====================================================
         // OBJECT SECTION
-        // ---------------------------------------------------------
+        // =====================================================
 
         Label objectSection = new Label("OBJECT");
         objectSection.getStyleClass().add("section-title");
@@ -82,9 +120,9 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
+        // =====================================================
         // POSITION SECTION
-        // ---------------------------------------------------------
+        // =====================================================
 
         Label positionSection = new Label("POSITION");
         positionSection.getStyleClass().add("section-title");
@@ -112,9 +150,9 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
+        // =====================================================
         // DIMENSIONS SECTION
-        // ---------------------------------------------------------
+        // =====================================================
 
         Label dimensionsSection = new Label("DIMENSIONS");
         dimensionsSection.getStyleClass().add("section-title");
@@ -142,9 +180,9 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
+        // =====================================================
         // TRANSFORMATION SECTION
-        // ---------------------------------------------------------
+        // =====================================================
 
         Label transformationSection =
                 new Label("TRANSFORMATION");
@@ -153,7 +191,9 @@ public class ControlPanel extends VBox {
                 .add("section-title");
 
 
+        // -------------------------
         // Rotation
+        // -------------------------
 
         Label rotationLabel = new Label("Rotation");
 
@@ -170,7 +210,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Keep Scale Uniform
+        // -------------------------
 
         keepScaleUniform =
                 new CheckBox("Keep scale uniform");
@@ -184,7 +226,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Scale X
+        // -------------------------
 
         Label scaleXLabel = new Label("Scale X");
 
@@ -201,7 +245,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Scale Y
+        // -------------------------
 
         Label scaleYLabel = new Label("Scale Y");
 
@@ -218,7 +264,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Translate X
+        // -------------------------
 
         Label translateXLabel = new Label("Translate X");
 
@@ -235,7 +283,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Translate Y
+        // -------------------------
 
         Label translateYLabel = new Label("Translate Y");
 
@@ -252,9 +302,9 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
+        // =====================================================
         // APPEARANCE SECTION
-        // ---------------------------------------------------------
+        // =====================================================
 
         Label appearanceSection =
                 new Label("APPEARANCE");
@@ -263,7 +313,9 @@ public class ControlPanel extends VBox {
                 .add("section-title");
 
 
+        // -------------------------
         // Fill Colour
+        // -------------------------
 
         Label fillColorLabel =
                 new Label("Fill colour");
@@ -281,7 +333,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Fill Type
+        // -------------------------
 
         Label fillTypeLabel =
                 new Label("Fill type");
@@ -306,7 +360,49 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
+        // Gradient Colour 1
+        // -------------------------
+
+        Label gradientColor1Label =
+                new Label("Gradient colour 1");
+
+        gradientColor1Picker = new ColorPicker();
+
+        gradientColor1Picker.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        gradientColor1Picker.setTooltip(
+                new Tooltip(
+                        "Choose the first gradient colour"
+                )
+        );
+
+
+        // -------------------------
+        // Gradient Colour 2
+        // -------------------------
+
+        Label gradientColor2Label =
+                new Label("Gradient colour 2");
+
+        gradientColor2Picker = new ColorPicker();
+
+        gradientColor2Picker.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        gradientColor2Picker.setTooltip(
+                new Tooltip(
+                        "Choose the second gradient colour"
+                )
+        );
+
+
+        // -------------------------
         // Border Colour
+        // -------------------------
 
         Label borderColorLabel =
                 new Label("Border colour");
@@ -324,7 +420,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Border Width
+        // -------------------------
 
         Label borderWidthLabel =
                 new Label("Border width");
@@ -347,7 +445,9 @@ public class ControlPanel extends VBox {
         );
 
 
+        // -------------------------
         // Border Style
+        // -------------------------
 
         Label borderStyleLabel =
                 new Label("Border style");
@@ -373,9 +473,224 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
+        // -------------------------
+        // Opacity
+        // -------------------------
+
+        Label opacityLabel =
+                new Label("Opacity");
+
+        opacitySlider =
+                new Slider(0, 1, 1);
+
+        opacitySlider.setShowTickLabels(true);
+        opacitySlider.setShowTickMarks(true);
+        opacitySlider.setMajorTickUnit(0.25);
+        opacitySlider.setBlockIncrement(0.1);
+        opacitySlider.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        opacitySlider.setTooltip(
+                new Tooltip(
+                        "Set the object opacity"
+                )
+        );
+
+
+        // =====================================================
+        // EFFECTS SECTION
+        // =====================================================
+
+        Label effectsSection =
+                new Label("EFFECTS");
+
+        effectsSection.getStyleClass()
+                .add("section-title");
+
+
+        // -------------------------
+        // Drop Shadow
+        // -------------------------
+
+        dropShadowCheckBox =
+                new CheckBox("Drop shadow");
+
+        dropShadowCheckBox.setTooltip(
+                new Tooltip(
+                        "Apply a drop shadow to the object"
+                )
+        );
+
+
+        // -------------------------
+        // Glow
+        // -------------------------
+
+        glowCheckBox =
+                new CheckBox("Glow");
+
+        glowCheckBox.setTooltip(
+                new Tooltip(
+                        "Apply a glow effect to the object"
+                )
+        );
+
+
+        // =====================================================
+        // ACTIONS SECTION
+        // =====================================================
+
+        Label actionsSection =
+                new Label("ACTIONS");
+
+        actionsSection.getStyleClass()
+                .add("section-title");
+
+
+        // -------------------------
+        // Center
+        // -------------------------
+
+        centerButton =
+                new Button("Center object");
+
+        centerButton.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        centerButton.setTooltip(
+                new Tooltip(
+                        "Move the object to the centre of the preview"
+                )
+        );
+
+
+        // -------------------------
+        // Flip H
+        // -------------------------
+
+        flipHButton =
+                new Button("Flip H");
+
+        flipHButton.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        flipHButton.setTooltip(
+                new Tooltip(
+                        "Flip the object horizontally"
+                )
+        );
+
+
+        // -------------------------
+        // Flip V
+        // -------------------------
+
+        flipVButton =
+                new Button("Flip V");
+
+        flipVButton.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        flipVButton.setTooltip(
+                new Tooltip(
+                        "Flip the object vertically"
+                )
+        );
+
+
+        // -------------------------
+        // Apply
+        // -------------------------
+
+        applyButton =
+                new Button("Apply");
+
+        applyButton.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        applyButton.setTooltip(
+                new Tooltip(
+                        "Apply the selected styling and transformations"
+                )
+        );
+
+
+        // -------------------------
+        // Reset
+        // -------------------------
+
+        resetButton =
+                new Button("Reset");
+
+        resetButton.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        resetButton.setTooltip(
+                new Tooltip(
+                        "Reset the object controls to their default values"
+                )
+        );
+
+
+        // -------------------------
+        // Action Button Rows
+        // -------------------------
+
+        HBox flipButtons =
+                new HBox(10);
+
+        flipButtons.getChildren().addAll(
+                flipHButton,
+                flipVButton
+        );
+
+        flipHButton.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        flipVButton.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        HBox.setHgrow(
+                flipHButton,
+                javafx.scene.layout.Priority.ALWAYS
+        );
+
+        HBox.setHgrow(
+                flipVButton,
+                javafx.scene.layout.Priority.ALWAYS
+        );
+
+
+        HBox finalActionButtons =
+                new HBox(10);
+
+        finalActionButtons.getChildren().addAll(
+                applyButton,
+                resetButton
+        );
+
+        HBox.setHgrow(
+                applyButton,
+                javafx.scene.layout.Priority.ALWAYS
+        );
+
+        HBox.setHgrow(
+                resetButton,
+                javafx.scene.layout.Priority.ALWAYS
+        );
+
+
+        // =====================================================
         // ADD ALL CONTROLS
-        // ---------------------------------------------------------
+        // =====================================================
 
         getChildren().addAll(
 
@@ -423,6 +738,12 @@ public class ControlPanel extends VBox {
                 fillTypeLabel,
                 fillTypeComboBox,
 
+                gradientColor1Label,
+                gradientColor1Picker,
+
+                gradientColor2Label,
+                gradientColor2Picker,
+
                 borderColorLabel,
                 borderColorPicker,
 
@@ -430,7 +751,23 @@ public class ControlPanel extends VBox {
                 borderWidthSlider,
 
                 borderStyleLabel,
-                borderStyleComboBox
+                borderStyleComboBox,
+
+                opacityLabel,
+                opacitySlider,
+
+                // Effects
+                effectsSection,
+
+                dropShadowCheckBox,
+                glowCheckBox,
+
+                // Actions
+                actionsSection,
+
+                centerButton,
+                flipButtons,
+                finalActionButtons
         );
     }
 }
