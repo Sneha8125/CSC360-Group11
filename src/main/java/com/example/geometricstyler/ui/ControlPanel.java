@@ -13,6 +13,8 @@ public class ControlPanel extends VBox {
     private ComboBox<String> objectTypeComboBox;
     private TextField xPositionField;
     private TextField yPositionField;
+    private TextField widthField;
+    private TextField heightField;
 
     public ControlPanel() {
 
@@ -61,6 +63,24 @@ public class ControlPanel extends VBox {
         yPositionField
 );
 
+Label dimensionsSection = new Label("DIMENSIONS");
+dimensionsSection.getStyleClass().add("section-title");
+
+widthField = new TextField("100");
+widthField.setPromptText("Width");
+widthField.setPrefWidth(100);
+
+heightField = new TextField("100");
+heightField.setPromptText("Height");
+heightField.setPrefWidth(100);
+
+HBox dimensionsRow = new HBox(10);
+dimensionsRow.getChildren().addAll(
+        widthField,
+        heightField
+);
+
+
         // Transformation section
         Label transformationSection = new Label("TRANSFORMATION");
         transformationSection.getStyleClass().add("section-title");
@@ -89,6 +109,9 @@ public class ControlPanel extends VBox {
 
                 positionSection,
                 positionRow,
+
+                dimensionsSection,
+                dimensionsRow,
 
                 transformationSection,
                 transformationPlaceholder,
