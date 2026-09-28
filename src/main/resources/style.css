@@ -35,3 +35,21 @@
     -fx-font-weight: bold;
     -fx-text-fill: #7f8fa6;
 }
+
+/* =========================================================
+   CURRENT OBJECT INFORMATION
+   ========================================================= */
+
+.info-label {
+    -fx-font-weight: bold;
+    -fx-min-width: 85px;
+}
+
+.info-value {
+    -fx-text-fill: #555555;
+}
+
+.status-label {
+    -fx-text-fill: #2e7d32;
+    -fx-font-weight: bold;
+}

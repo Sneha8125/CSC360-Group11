@@ -78,6 +78,21 @@ public class ControlPanel extends VBox {
     private Button applyButton;
     private Button resetButton;
 
+    // ---------------------------------------------------------
+    // CURRENT OBJECT INFORMATION
+    // ---------------------------------------------------------
+
+    private Label currentTypeValue;
+    private Label currentPositionValue;
+    private Label currentSizeValue;
+    private Label currentRotationValue;
+    private Label currentScaleValue;
+    private Label currentTranslationValue;
+    private Label currentOpacityValue;
+    private Label currentBorderValue;
+    private Label currentFillValue;
+    private Label currentStatusValue;
+
     public ControlPanel() {
 
         setSpacing(15);
@@ -144,6 +159,7 @@ public class ControlPanel extends VBox {
         );
 
         HBox positionRow = new HBox(10);
+
         positionRow.getChildren().addAll(
                 xPositionField,
                 yPositionField
@@ -154,8 +170,11 @@ public class ControlPanel extends VBox {
         // DIMENSIONS SECTION
         // =====================================================
 
-        Label dimensionsSection = new Label("DIMENSIONS");
-        dimensionsSection.getStyleClass().add("section-title");
+        Label dimensionsSection =
+                new Label("DIMENSIONS");
+
+        dimensionsSection.getStyleClass()
+                .add("section-title");
 
         widthField = new TextField("100");
         widthField.setPromptText("Width");
@@ -174,6 +193,7 @@ public class ControlPanel extends VBox {
         );
 
         HBox dimensionsRow = new HBox(10);
+
         dimensionsRow.getChildren().addAll(
                 widthField,
                 heightField
@@ -195,18 +215,24 @@ public class ControlPanel extends VBox {
         // Rotation
         // -------------------------
 
-        Label rotationLabel = new Label("Rotation");
+        Label rotationLabel =
+                new Label("Rotation");
 
-        rotationSlider = new Slider(0, 360, 0);
+        rotationSlider =
+                new Slider(0, 360, 0);
 
         rotationSlider.setShowTickLabels(true);
         rotationSlider.setShowTickMarks(true);
         rotationSlider.setMajorTickUnit(90);
         rotationSlider.setBlockIncrement(15);
-        rotationSlider.setMaxWidth(Double.MAX_VALUE);
+        rotationSlider.setMaxWidth(
+                Double.MAX_VALUE
+        );
 
         rotationSlider.setTooltip(
-                new Tooltip("Rotate the object from 0 to 360 degrees")
+                new Tooltip(
+                        "Rotate the object from 0 to 360 degrees"
+                )
         );
 
 
@@ -230,18 +256,24 @@ public class ControlPanel extends VBox {
         // Scale X
         // -------------------------
 
-        Label scaleXLabel = new Label("Scale X");
+        Label scaleXLabel =
+                new Label("Scale X");
 
-        scaleXSlider = new Slider(0.5, 2.0, 1.0);
+        scaleXSlider =
+                new Slider(0.5, 2.0, 1.0);
 
         scaleXSlider.setShowTickLabels(true);
         scaleXSlider.setShowTickMarks(true);
         scaleXSlider.setMajorTickUnit(0.5);
         scaleXSlider.setBlockIncrement(0.1);
-        scaleXSlider.setMaxWidth(Double.MAX_VALUE);
+        scaleXSlider.setMaxWidth(
+                Double.MAX_VALUE
+        );
 
         scaleXSlider.setTooltip(
-                new Tooltip("Scale the object horizontally")
+                new Tooltip(
+                        "Scale the object horizontally"
+                )
         );
 
 
@@ -249,18 +281,24 @@ public class ControlPanel extends VBox {
         // Scale Y
         // -------------------------
 
-        Label scaleYLabel = new Label("Scale Y");
+        Label scaleYLabel =
+                new Label("Scale Y");
 
-        scaleYSlider = new Slider(0.5, 2.0, 1.0);
+        scaleYSlider =
+                new Slider(0.5, 2.0, 1.0);
 
         scaleYSlider.setShowTickLabels(true);
         scaleYSlider.setShowTickMarks(true);
         scaleYSlider.setMajorTickUnit(0.5);
         scaleYSlider.setBlockIncrement(0.1);
-        scaleYSlider.setMaxWidth(Double.MAX_VALUE);
+        scaleYSlider.setMaxWidth(
+                Double.MAX_VALUE
+        );
 
         scaleYSlider.setTooltip(
-                new Tooltip("Scale the object vertically")
+                new Tooltip(
+                        "Scale the object vertically"
+                )
         );
 
 
@@ -268,18 +306,24 @@ public class ControlPanel extends VBox {
         // Translate X
         // -------------------------
 
-        Label translateXLabel = new Label("Translate X");
+        Label translateXLabel =
+                new Label("Translate X");
 
-        translateXSlider = new Slider(-500, 500, 0);
+        translateXSlider =
+                new Slider(-500, 500, 0);
 
         translateXSlider.setShowTickLabels(true);
         translateXSlider.setShowTickMarks(true);
         translateXSlider.setMajorTickUnit(250);
         translateXSlider.setBlockIncrement(10);
-        translateXSlider.setMaxWidth(Double.MAX_VALUE);
+        translateXSlider.setMaxWidth(
+                Double.MAX_VALUE
+        );
 
         translateXSlider.setTooltip(
-                new Tooltip("Move the object horizontally")
+                new Tooltip(
+                        "Move the object horizontally"
+                )
         );
 
 
@@ -287,18 +331,24 @@ public class ControlPanel extends VBox {
         // Translate Y
         // -------------------------
 
-        Label translateYLabel = new Label("Translate Y");
+        Label translateYLabel =
+                new Label("Translate Y");
 
-        translateYSlider = new Slider(-500, 500, 0);
+        translateYSlider =
+                new Slider(-500, 500, 0);
 
         translateYSlider.setShowTickLabels(true);
         translateYSlider.setShowTickMarks(true);
         translateYSlider.setMajorTickUnit(250);
         translateYSlider.setBlockIncrement(10);
-        translateYSlider.setMaxWidth(Double.MAX_VALUE);
+        translateYSlider.setMaxWidth(
+                Double.MAX_VALUE
+        );
 
         translateYSlider.setTooltip(
-                new Tooltip("Move the object vertically")
+                new Tooltip(
+                        "Move the object vertically"
+                )
         );
 
 
@@ -320,7 +370,8 @@ public class ControlPanel extends VBox {
         Label fillColorLabel =
                 new Label("Fill colour");
 
-        fillColorPicker = new ColorPicker();
+        fillColorPicker =
+                new ColorPicker();
 
         fillColorPicker.setMaxWidth(
                 Double.MAX_VALUE
@@ -340,7 +391,8 @@ public class ControlPanel extends VBox {
         Label fillTypeLabel =
                 new Label("Fill type");
 
-        fillTypeComboBox = new ComboBox<>();
+        fillTypeComboBox =
+                new ComboBox<>();
 
         fillTypeComboBox.getItems().addAll(
                 "Solid",
@@ -349,6 +401,7 @@ public class ControlPanel extends VBox {
         );
 
         fillTypeComboBox.setValue("Solid");
+
         fillTypeComboBox.setMaxWidth(
                 Double.MAX_VALUE
         );
@@ -367,7 +420,8 @@ public class ControlPanel extends VBox {
         Label gradientColor1Label =
                 new Label("Gradient colour 1");
 
-        gradientColor1Picker = new ColorPicker();
+        gradientColor1Picker =
+                new ColorPicker();
 
         gradientColor1Picker.setMaxWidth(
                 Double.MAX_VALUE
@@ -387,7 +441,8 @@ public class ControlPanel extends VBox {
         Label gradientColor2Label =
                 new Label("Gradient colour 2");
 
-        gradientColor2Picker = new ColorPicker();
+        gradientColor2Picker =
+                new ColorPicker();
 
         gradientColor2Picker.setMaxWidth(
                 Double.MAX_VALUE
@@ -407,7 +462,8 @@ public class ControlPanel extends VBox {
         Label borderColorLabel =
                 new Label("Border colour");
 
-        borderColorPicker = new ColorPicker();
+        borderColorPicker =
+                new ColorPicker();
 
         borderColorPicker.setMaxWidth(
                 Double.MAX_VALUE
@@ -462,6 +518,7 @@ public class ControlPanel extends VBox {
         );
 
         borderStyleComboBox.setValue("Solid");
+
         borderStyleComboBox.setMaxWidth(
                 Double.MAX_VALUE
         );
@@ -509,10 +566,6 @@ public class ControlPanel extends VBox {
                 .add("section-title");
 
 
-        // -------------------------
-        // Drop Shadow
-        // -------------------------
-
         dropShadowCheckBox =
                 new CheckBox("Drop shadow");
 
@@ -522,10 +575,6 @@ public class ControlPanel extends VBox {
                 )
         );
 
-
-        // -------------------------
-        // Glow
-        // -------------------------
 
         glowCheckBox =
                 new CheckBox("Glow");
@@ -602,6 +651,25 @@ public class ControlPanel extends VBox {
         );
 
 
+        HBox flipButtons =
+                new HBox(10);
+
+        flipButtons.getChildren().addAll(
+                flipHButton,
+                flipVButton
+        );
+
+        HBox.setHgrow(
+                flipHButton,
+                javafx.scene.layout.Priority.ALWAYS
+        );
+
+        HBox.setHgrow(
+                flipVButton,
+                javafx.scene.layout.Priority.ALWAYS
+        );
+
+
         // -------------------------
         // Apply
         // -------------------------
@@ -638,37 +706,6 @@ public class ControlPanel extends VBox {
         );
 
 
-        // -------------------------
-        // Action Button Rows
-        // -------------------------
-
-        HBox flipButtons =
-                new HBox(10);
-
-        flipButtons.getChildren().addAll(
-                flipHButton,
-                flipVButton
-        );
-
-        flipHButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
-
-        flipVButton.setMaxWidth(
-                Double.MAX_VALUE
-        );
-
-        HBox.setHgrow(
-                flipHButton,
-                javafx.scene.layout.Priority.ALWAYS
-        );
-
-        HBox.setHgrow(
-                flipVButton,
-                javafx.scene.layout.Priority.ALWAYS
-        );
-
-
         HBox finalActionButtons =
                 new HBox(10);
 
@@ -686,6 +723,181 @@ public class ControlPanel extends VBox {
                 resetButton,
                 javafx.scene.layout.Priority.ALWAYS
         );
+
+
+        // =====================================================
+        // CURRENT OBJECT INFORMATION
+        // =====================================================
+
+        Label currentObjectSection =
+                new Label("CURRENT OBJECT");
+
+        currentObjectSection.getStyleClass()
+                .add("section-title");
+
+
+        currentTypeValue =
+                new Label("Circle");
+
+        currentPositionValue =
+                new Label("X: 0    Y: 0");
+
+        currentSizeValue =
+                new Label("100 × 100");
+
+        currentRotationValue =
+                new Label("0°");
+
+        currentScaleValue =
+                new Label("X: 1.0    Y: 1.0");
+
+        currentTranslationValue =
+                new Label("X: 0    Y: 0");
+
+        currentOpacityValue =
+                new Label("100%");
+
+        currentBorderValue =
+                new Label("3 px, Solid");
+
+        currentFillValue =
+                new Label("Solid");
+
+        currentStatusValue =
+                new Label("Ready");
+
+        currentStatusValue.getStyleClass()
+                .add("status-label");
+
+
+        // -------------------------
+        // Information Rows
+        // -------------------------
+
+        HBox typeRow =
+                createInfoRow(
+                        "Type",
+                        currentTypeValue
+                );
+
+        HBox positionInfoRow =
+                createInfoRow(
+                        "Position",
+                        currentPositionValue
+                );
+
+        HBox sizeRow =
+                createInfoRow(
+                        "Size",
+                        currentSizeValue
+                );
+
+        HBox rotationInfoRow =
+                createInfoRow(
+                        "Rotation",
+                        currentRotationValue
+                );
+
+        HBox scaleInfoRow =
+                createInfoRow(
+                        "Scale",
+                        currentScaleValue
+                );
+
+        HBox translationInfoRow =
+                createInfoRow(
+                        "Translation",
+                        currentTranslationValue
+                );
+
+        HBox opacityInfoRow =
+                createInfoRow(
+                        "Opacity",
+                        currentOpacityValue
+                );
+
+        HBox borderInfoRow =
+                createInfoRow(
+                        "Border",
+                        currentBorderValue
+                );
+
+        HBox fillInfoRow =
+                createInfoRow(
+                        "Fill",
+                        currentFillValue
+                );
+
+        HBox statusRow =
+                createInfoRow(
+                        "Status",
+                        currentStatusValue
+                );
+
+
+        // =====================================================
+        // CONTROL LISTENERS
+        // =====================================================
+
+        objectTypeComboBox.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        rotationSlider.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        scaleXSlider.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        scaleYSlider.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        translateXSlider.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        translateYSlider.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        opacitySlider.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        borderWidthSlider.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        borderStyleComboBox.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
+
+        fillTypeComboBox.valueProperty()
+                .addListener(
+                        (observable, oldValue, newValue) ->
+                                updateCurrentObjectInfo()
+                );
 
 
         // =====================================================
@@ -767,7 +979,156 @@ public class ControlPanel extends VBox {
 
                 centerButton,
                 flipButtons,
-                finalActionButtons
+                finalActionButtons,
+
+                // Current Object
+                currentObjectSection,
+
+                typeRow,
+                positionInfoRow,
+                sizeRow,
+                rotationInfoRow,
+                scaleInfoRow,
+                translationInfoRow,
+                opacityInfoRow,
+                borderInfoRow,
+                fillInfoRow,
+                statusRow
+        );
+
+        // Initialize information display
+        updateCurrentObjectInfo();
+    }
+
+
+    // =========================================================
+    // CREATE INFORMATION ROW
+    // =========================================================
+
+    private HBox createInfoRow(
+            String name,
+            Label value
+    ) {
+
+        Label nameLabel =
+                new Label(name);
+
+        nameLabel.getStyleClass()
+                .add("info-label");
+
+        value.getStyleClass()
+                .add("info-value");
+
+        HBox row =
+                new HBox(10);
+
+        row.setAlignment(
+                Pos.CENTER_LEFT
+        );
+
+        row.getChildren().addAll(
+                nameLabel,
+                value
+        );
+
+        return row;
+    }
+
+
+    // =========================================================
+    // UPDATE CURRENT OBJECT INFORMATION
+    // =========================================================
+
+    private void updateCurrentObjectInfo() {
+
+        // Type
+        currentTypeValue.setText(
+                objectTypeComboBox.getValue()
+        );
+
+
+        // Position
+        String xPosition =
+                xPositionField.getText();
+
+        String yPosition =
+                yPositionField.getText();
+
+        currentPositionValue.setText(
+                "X: " + xPosition +
+                "    Y: " + yPosition
+        );
+
+
+        // Size
+        String width =
+                widthField.getText();
+
+        String height =
+                heightField.getText();
+
+        currentSizeValue.setText(
+                width + " × " + height
+        );
+
+
+        // Rotation
+        currentRotationValue.setText(
+                String.format(
+                        "%.0f°",
+                        rotationSlider.getValue()
+                )
+        );
+
+
+        // Scale
+        currentScaleValue.setText(
+                String.format(
+                        "X: %.1f    Y: %.1f",
+                        scaleXSlider.getValue(),
+                        scaleYSlider.getValue()
+                )
+        );
+
+
+        // Translation
+        currentTranslationValue.setText(
+                String.format(
+                        "X: %.0f    Y: %.0f",
+                        translateXSlider.getValue(),
+                        translateYSlider.getValue()
+                )
+        );
+
+
+        // Opacity
+        currentOpacityValue.setText(
+                String.format(
+                        "%.0f%%",
+                        opacitySlider.getValue() * 100
+                )
+        );
+
+
+        // Border
+        currentBorderValue.setText(
+                String.format(
+                        "%.0f px, %s",
+                        borderWidthSlider.getValue(),
+                        borderStyleComboBox.getValue()
+                )
+        );
+
+
+        // Fill
+        currentFillValue.setText(
+                fillTypeComboBox.getValue()
+        );
+
+
+        // Status
+        currentStatusValue.setText(
+                "Ready"
         );
     }
 }
