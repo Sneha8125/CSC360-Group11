@@ -3,6 +3,7 @@ package com.example.geometricStyler.ui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -13,23 +14,31 @@ import javafx.scene.layout.VBox;
 
 public class ControlPanel extends VBox {
 
+    // Object
     private ComboBox<String> objectTypeComboBox;
 
+    // Position
     private TextField xPositionField;
     private TextField yPositionField;
 
+    // Dimensions
     private TextField widthField;
     private TextField heightField;
 
+    // Transformation
     private Slider rotationSlider;
-
     private CheckBox keepScaleUniform;
-
     private Slider scaleXSlider;
     private Slider scaleYSlider;
-
     private Slider translateXSlider;
     private Slider translateYSlider;
+
+    // Appearance
+    private ColorPicker fillColorPicker;
+    private ComboBox<String> fillTypeComboBox;
+    private ColorPicker borderColorPicker;
+    private Slider borderWidthSlider;
+    private ComboBox<String> borderStyleComboBox;
 
     public ControlPanel() {
 
@@ -144,9 +153,7 @@ public class ControlPanel extends VBox {
                 .add("section-title");
 
 
-        // ---------------------------------------------------------
-        // ROTATION
-        // ---------------------------------------------------------
+        // Rotation
 
         Label rotationLabel = new Label("Rotation");
 
@@ -163,9 +170,7 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
-        // KEEP SCALE UNIFORM
-        // ---------------------------------------------------------
+        // Keep Scale Uniform
 
         keepScaleUniform =
                 new CheckBox("Keep scale uniform");
@@ -179,9 +184,7 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
-        // SCALE X
-        // ---------------------------------------------------------
+        // Scale X
 
         Label scaleXLabel = new Label("Scale X");
 
@@ -198,9 +201,7 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
-        // SCALE Y
-        // ---------------------------------------------------------
+        // Scale Y
 
         Label scaleYLabel = new Label("Scale Y");
 
@@ -217,9 +218,7 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
-        // TRANSLATE X
-        // ---------------------------------------------------------
+        // Translate X
 
         Label translateXLabel = new Label("Translate X");
 
@@ -236,9 +235,7 @@ public class ControlPanel extends VBox {
         );
 
 
-        // ---------------------------------------------------------
-        // TRANSLATE Y
-        // ---------------------------------------------------------
+        // Translate Y
 
         Label translateYLabel = new Label("Translate Y");
 
@@ -265,13 +262,115 @@ public class ControlPanel extends VBox {
         appearanceSection.getStyleClass()
                 .add("section-title");
 
-        Label appearancePlaceholder =
-                new Label(
-                        "Appearance controls will be added next."
-                );
 
-        appearancePlaceholder.getStyleClass()
-                .add("placeholder-label");
+        // Fill Colour
+
+        Label fillColorLabel =
+                new Label("Fill colour");
+
+        fillColorPicker = new ColorPicker();
+
+        fillColorPicker.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        fillColorPicker.setTooltip(
+                new Tooltip(
+                        "Choose the fill colour of the object"
+                )
+        );
+
+
+        // Fill Type
+
+        Label fillTypeLabel =
+                new Label("Fill type");
+
+        fillTypeComboBox = new ComboBox<>();
+
+        fillTypeComboBox.getItems().addAll(
+                "Solid",
+                "Linear Gradient",
+                "Radial Gradient"
+        );
+
+        fillTypeComboBox.setValue("Solid");
+        fillTypeComboBox.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        fillTypeComboBox.setTooltip(
+                new Tooltip(
+                        "Choose the type of fill"
+                )
+        );
+
+
+        // Border Colour
+
+        Label borderColorLabel =
+                new Label("Border colour");
+
+        borderColorPicker = new ColorPicker();
+
+        borderColorPicker.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        borderColorPicker.setTooltip(
+                new Tooltip(
+                        "Choose the border colour"
+                )
+        );
+
+
+        // Border Width
+
+        Label borderWidthLabel =
+                new Label("Border width");
+
+        borderWidthSlider =
+                new Slider(0, 20, 3);
+
+        borderWidthSlider.setShowTickLabels(true);
+        borderWidthSlider.setShowTickMarks(true);
+        borderWidthSlider.setMajorTickUnit(5);
+        borderWidthSlider.setBlockIncrement(1);
+        borderWidthSlider.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        borderWidthSlider.setTooltip(
+                new Tooltip(
+                        "Set the border width"
+                )
+        );
+
+
+        // Border Style
+
+        Label borderStyleLabel =
+                new Label("Border style");
+
+        borderStyleComboBox =
+                new ComboBox<>();
+
+        borderStyleComboBox.getItems().addAll(
+                "Solid",
+                "Dashed",
+                "Dotted"
+        );
+
+        borderStyleComboBox.setValue("Solid");
+        borderStyleComboBox.setMaxWidth(
+                Double.MAX_VALUE
+        );
+
+        borderStyleComboBox.setTooltip(
+                new Tooltip(
+                        "Choose the border style"
+                )
+        );
 
 
         // ---------------------------------------------------------
@@ -279,17 +378,23 @@ public class ControlPanel extends VBox {
         // ---------------------------------------------------------
 
         getChildren().addAll(
+
+                // Title
                 title,
 
+                // Object
                 objectSection,
                 objectTypeComboBox,
 
+                // Position
                 positionSection,
                 positionRow,
 
+                // Dimensions
                 dimensionsSection,
                 dimensionsRow,
 
+                // Transformation
                 transformationSection,
 
                 rotationLabel,
@@ -309,8 +414,23 @@ public class ControlPanel extends VBox {
                 translateYLabel,
                 translateYSlider,
 
+                // Appearance
                 appearanceSection,
-                appearancePlaceholder
+
+                fillColorLabel,
+                fillColorPicker,
+
+                fillTypeLabel,
+                fillTypeComboBox,
+
+                borderColorLabel,
+                borderColorPicker,
+
+                borderWidthLabel,
+                borderWidthSlider,
+
+                borderStyleLabel,
+                borderStyleComboBox
         );
     }
 }
