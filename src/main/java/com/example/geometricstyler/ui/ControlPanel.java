@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.Slider;
 
 public class ControlPanel extends VBox {
 
@@ -15,6 +16,8 @@ public class ControlPanel extends VBox {
     private TextField yPositionField;
     private TextField widthField;
     private TextField heightField;
+    private Slider rotationSlider;
+    private Slider scaleSlider;
 
     public ControlPanel() {
 
@@ -85,11 +88,23 @@ dimensionsRow.getChildren().addAll(
         Label transformationSection = new Label("TRANSFORMATION");
         transformationSection.getStyleClass().add("section-title");
 
-        Label transformationPlaceholder =
-                new Label("Transformation controls will be added next.");
+        Label rotationLabel = new Label("Rotation");
 
-        transformationPlaceholder.getStyleClass()
-                .add("placeholder-label");
+        rotationSlider = new Slider(0, 360, 0);
+        rotationSlider.setShowTickLabels(true);
+        rotationSlider.setShowTickMarks(true);
+        rotationSlider.setMajorTickUnit(90);
+        rotationSlider.setBlockIncrement(15);
+        rotationSlider.setMaxWidth(Double.MAX_VALUE);
+
+        Label scaleLabel = new Label("Scale");
+
+        scaleSlider = new Slider(0.5, 2.0, 1.0);
+        scaleSlider.setShowTickLabels(true);
+        scaleSlider.setShowTickMarks(true);
+        scaleSlider.setMajorTickUnit(0.5);
+        scaleSlider.setBlockIncrement(0.1);
+        scaleSlider.setMaxWidth(Double.MAX_VALUE);
 
         // Appearance section
         Label appearanceSection = new Label("APPEARANCE");
@@ -114,7 +129,12 @@ dimensionsRow.getChildren().addAll(
                 dimensionsRow,
 
                 transformationSection,
-                transformationPlaceholder,
+                
+                rotationLabel,
+                rotationSlider,
+
+                scaleLabel,
+                scaleSlider,
 
                 appearanceSection,
                 appearancePlaceholder
