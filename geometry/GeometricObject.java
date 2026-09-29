@@ -8,6 +8,9 @@ public abstract class GeometricObject {
     private double width;
     private double height;
 
+    private double rotation;
+    private double scale;
+
     protected GeometricObject(double x, double y,
             double width, double height) {
 
@@ -20,6 +23,9 @@ public abstract class GeometricObject {
         this.y = y;
         this.width = width;
         this.height = height;
+
+        this.rotation = 0.0;
+        this.scale = 1.0;
     }
 
     // =========================
@@ -97,6 +103,55 @@ public abstract class GeometricObject {
     public void translate(double dx, double dy) {
         this.x += dx;
         this.y += dy;
+    }
+
+    // =========================
+    // Rotation
+    // =========================
+
+    public double getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(double rotation) {
+
+        this.rotation = rotation % 360;
+
+        if (this.rotation < 0) {
+            this.rotation += 360;
+        }
+    }
+
+    public void rotate(double angle) {
+        setRotation(this.rotation + angle);
+    }
+
+    // =========================
+    // Scale
+    // =========================
+
+    public double getScale() {
+        return scale;
+    }
+
+    public void setScale(double scale) {
+
+        if (scale <= 0) {
+            throw new IllegalArgumentException(
+                    "Scale must be greater than zero.");
+        }
+
+        this.scale = scale;
+    }
+
+    public void scaleBy(double factor) {
+
+        if (factor <= 0) {
+            throw new IllegalArgumentException(
+                    "Scale factor must be greater than zero.");
+        }
+
+        this.scale *= factor;
     }
 
     // =========================
