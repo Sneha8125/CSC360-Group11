@@ -222,6 +222,9 @@ public class ControlPanel extends VBox {
         Label rotationLabel = new Label("Rotation");
 
         rotationSlider = new Slider(0, 360, 0);
+        rotationSlider.setTooltip(
+        new Tooltip("Rotate the object from 0° to 360°")
+);
         rotationSlider.setShowTickLabels(true);
         rotationSlider.setShowTickMarks(true);
         rotationSlider.setMajorTickUnit(90);
@@ -238,6 +241,9 @@ public class ControlPanel extends VBox {
         Label scaleXLabel = new Label("Scale X");
 
         scaleXSlider = new Slider(0.5, 2.0, 1.0);
+        scaleXSlider.setTooltip(
+        new Tooltip("Adjust the horizontal scale of the object")
+);
         scaleXSlider.setShowTickLabels(true);
         scaleXSlider.setShowTickMarks(true);
         scaleXSlider.setMajorTickUnit(0.5);
@@ -249,6 +255,9 @@ public class ControlPanel extends VBox {
         Label scaleYLabel = new Label("Scale Y");
 
         scaleYSlider = new Slider(0.5, 2.0, 1.0);
+        scaleYSlider.setTooltip(
+        new Tooltip("Adjust the vertical scale of the object")
+);
         scaleYSlider.setShowTickLabels(true);
         scaleYSlider.setShowTickMarks(true);
         scaleYSlider.setMajorTickUnit(0.5);
@@ -370,6 +379,9 @@ public class ControlPanel extends VBox {
         Label opacityLabel = new Label("Opacity");
 
         opacitySlider = new Slider(0, 1, 1);
+        opacitySlider.setTooltip(
+        new Tooltip("Adjust the transparency of the object")
+);
         opacitySlider.setShowTickLabels(true);
         opacitySlider.setShowTickMarks(true);
         opacitySlider.setMajorTickUnit(0.25);
@@ -386,6 +398,14 @@ public class ControlPanel extends VBox {
         dropShadowCheckBox = new CheckBox("Drop shadow");
         glowCheckBox = new CheckBox("Glow");
 
+        dropShadowCheckBox.setTooltip(
+        new Tooltip("Add a shadow effect around the object")
+);
+
+glowCheckBox.setTooltip(
+        new Tooltip("Add a glow effect around the object")
+);
+
         // =====================================================
         // ACTIONS
         // =====================================================
@@ -396,8 +416,20 @@ public class ControlPanel extends VBox {
         centerButton = new Button("Center object");
         centerButton.setMaxWidth(Double.MAX_VALUE);
 
+        centerButton.setTooltip(
+        new Tooltip("Move the object to the center of the preview area")
+);
+
         flipHButton = new Button("Flip H");
         flipVButton = new Button("Flip V");
+
+        flipHButton.setTooltip(
+        new Tooltip("Flip the object horizontally")
+);
+
+flipVButton.setTooltip(
+        new Tooltip("Flip the object vertically")
+);
 
         HBox flipButtons = new HBox(10);
 
