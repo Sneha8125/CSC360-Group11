@@ -220,3 +220,31 @@
     -fx-font-size: 11px;
     -fx-padding: 7px;
 }
+
+/* =========================================================
+   CURRENT OBJECT INFORMATION
+   ========================================================= */
+
+.current-object-section {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px;
+}
+
+.current-object-section .info-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+    -fx-min-width: 90px;
+}
+
+.current-object-section .info-value {
+    -fx-text-fill: #4b5563;
+}
+
+.current-object-section .status-label {
+    -fx-text-fill: #2e7d32;
+    -fx-font-weight: bold;
+}

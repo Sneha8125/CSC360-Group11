@@ -508,6 +508,24 @@ public class ControlPanel extends VBox {
                 currentStatusValue
         );
 
+        VBox currentObjectInfoBox = new VBox(6);
+
+currentObjectInfoBox.getStyleClass().add("current-object-section");
+
+currentObjectInfoBox.getChildren().addAll(
+        currentObjectSection,
+        typeRow,
+        positionInfoRow,
+        sizeRow,
+        rotationInfoRow,
+        scaleInfoRow,
+        translationInfoRow,
+        opacityInfoRow,
+        borderInfoRow,
+        fillInfoRow,
+        statusRow
+);
+
         // =====================================================
         // LIVE INFORMATION LISTENERS
         // =====================================================
@@ -639,17 +657,7 @@ public class ControlPanel extends VBox {
                 flipButtons,
                 finalActionButtons,
 
-                currentObjectSection,
-                typeRow,
-                positionInfoRow,
-                sizeRow,
-                rotationInfoRow,
-                scaleInfoRow,
-                translationInfoRow,
-                opacityInfoRow,
-                borderInfoRow,
-                fillInfoRow,
-                statusRow
+                currentObjectInfoBox
         );
 
         updateCurrentObjectInfo();
