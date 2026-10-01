@@ -1,0 +1,286 @@
+/*
+ * Geometric Object Styler - application stylesheet
+ *
+ * Palette: cool paper background, white working surfaces, one teal accent that
+ * marks anything interactive or currently active. Nothing is decorated twice:
+ * borders separate areas, the accent carries state, type carries hierarchy.
+ */
+
+.root {
+    -ink: #1f2933;
+    -ink-soft: #6b7785;
+    -surface: #eef1f4;
+    -panel: #ffffff;
+    -line: #d7dee5;
+    -accent: #0f766e;
+    -accent-soft: #d9ece9;
+    -danger: #b42318;
+
+    -fx-font-family: "Segoe UI", "Inter", "DejaVu Sans", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -surface;
+}
+
+.app-root {
+    -fx-background-color: -surface;
+}
+
+/* ---------- header ---------- */
+
+.app-header {
+    -fx-padding: 14 20 14 20;
+    -fx-background-color: -panel;
+    -fx-border-color: transparent transparent -line transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -ink;
+}
+
+.app-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: -ink-soft;
+}
+
+/* ---------- left control panel ---------- */
+
+.control-panel {
+    -fx-background-color: -panel;
+    -fx-border-color: transparent -line transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.control-panel > .viewport {
+    -fx-background-color: -panel;
+}
+
+.control-content {
+    -fx-padding: 18;
+    -fx-background-color: -panel;
+}
+
+.section {
+    -fx-padding: 0 0 4 0;
+}
+
+.section-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -accent;
+    -fx-padding: 0 0 2 8;
+    -fx-border-color: -accent;
+    -fx-border-width: 0 0 0 3;
+}
+
+.field-label {
+    -fx-text-fill: -ink;
+}
+
+.control-row {
+    -fx-padding: 1 0 1 0;
+}
+
+.slider-field {
+    -fx-padding: 2 0 2 0;
+}
+
+/* ---------- inputs ---------- */
+
+.value-field {
+    -fx-background-color: -panel;
+    -fx-border-color: -line;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 3 7 3 7;
+    -fx-text-fill: -ink;
+    -fx-alignment: center-right;
+}
+
+.value-field:focused {
+    -fx-border-color: -accent;
+}
+
+.slider .track {
+    -fx-background-color: #e3e9ee;
+    -fx-background-radius: 3;
+    -fx-pref-height: 6;
+}
+
+.slider .thumb {
+    -fx-background-color: -accent;
+    -fx-background-radius: 20;
+    -fx-pref-width: 14;
+    -fx-pref-height: 14;
+}
+
+.slider:focused .thumb {
+    -fx-effect: dropshadow(gaussian, -accent-soft, 6, 0.6, 0, 0);
+}
+
+.combo-box,
+.color-picker {
+    -fx-background-color: -panel;
+    -fx-border-color: -line;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-pref-width: 150;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -ink;
+    -fx-padding: 3 6 3 6;
+}
+
+.combo-box:focused,
+.color-picker:focused {
+    -fx-border-color: -accent;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -panel;
+    -fx-border-color: -line;
+}
+
+.combo-box-popup .list-cell:filled:hover,
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: -accent-soft;
+    -fx-text-fill: -ink;
+}
+
+.check-box {
+    -fx-text-fill: -ink;
+    -fx-padding: 2 0 2 0;
+}
+
+.check-box:selected .box {
+    -fx-background-color: -accent;
+    -fx-border-color: -accent;
+}
+
+.check-box .box {
+    -fx-background-color: -panel;
+    -fx-border-color: -line;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: -panel;
+}
+
+/* ---------- buttons ---------- */
+
+.button {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 7 14 7 14;
+    -fx-cursor: hand;
+}
+
+.primary-button {
+    -fx-background-color: -accent;
+    -fx-text-fill: -panel;
+    -fx-font-weight: bold;
+}
+
+.primary-button:hover {
+    -fx-background-color: #115e56;
+}
+
+.secondary-button {
+    -fx-background-color: -panel;
+    -fx-text-fill: -ink;
+    -fx-border-color: -line;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+}
+
+.secondary-button:hover {
+    -fx-background-color: -accent-soft;
+    -fx-border-color: -accent;
+}
+
+/* ---------- preview area ---------- */
+
+.work-area {
+    -fx-padding: 16;
+}
+
+.preview-pane {
+    -fx-background-color: -panel;
+    -fx-background-radius: 10;
+    -fx-border-color: -line;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+/* Marks the active object as selected without drawing a second object. */
+.preview-pane.selected {
+    -fx-border-color: -accent;
+    -fx-border-width: 2;
+}
+
+/* ---------- property and status strip ---------- */
+
+.property-view {
+    -fx-background-color: -panel;
+    -fx-background-radius: 10;
+    -fx-border-color: -line;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 12 16 12 16;
+}
+
+.property-entry {
+    -fx-padding: 1 0 1 0;
+}
+
+.property-caption {
+    -fx-text-fill: -ink-soft;
+    -fx-font-size: 12px;
+}
+
+.property-value {
+    -fx-text-fill: -ink;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-label {
+    -fx-text-fill: -accent;
+    -fx-font-size: 12px;
+}
+
+.status-error {
+    -fx-text-fill: -danger;
+}
+
+/* ---------- tooltips and scrollbar ---------- */
+
+.tooltip {
+    -fx-background-color: -ink;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-font-size: 12px;
+    -fx-padding: 6 9 6 9;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: -panel;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c6d0d9;
+    -fx-background-radius: 6;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
