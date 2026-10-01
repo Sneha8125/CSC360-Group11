@@ -8,24 +8,31 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Shape;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
- * Assembles every StyleFeature into a single panel and coordinates them:
- *   - re-applies ALL features to the target shape whenever ANY one changes
- *   - resets every feature (and repaints) when "Reset to Default" is pressed
+ * Main styling panel that combines all available StyleFeature controls.
  *
- * To add feature 4 (dashed already lives in BorderStyleControl) or any new
- * feature later, write a class implementing StyleFeature and add it to the
- * `features` list below - nothing else in this file needs to change.
+ * Whenever a feature changes, all features are re-applied to the target shape.
+ * The panel also provides a single action to reset all features to their
+ * default values.
  */
-public class StylingPanel {
+public final class StylingPanel {
 
-    private final VBox root = new VBox(16);
+    private static final double PANEL_SPACING = 16;
+    private static final double PANEL_PADDING = 20;
+    private static final double PANEL_WIDTH = 320;
+
+    private final VBox root = new VBox(PANEL_SPACING);
     private final List<StyleFeature> features;
     private final Shape target;
 
     public StylingPanel(Shape target) {
-        this.target = target;
+        this.target = Objects.requireNonNull(
+                target,
+                "target shape must not be null"
+        );
+
         this.features = List.of(
                 new FillStyleControl(),
                 new BorderStyleControl(),
@@ -33,43 +40,97 @@ public class StylingPanel {
                 new EffectsControl()
         );
 
-        root.setPadding(new Insets(20));
-        root.setPrefWidth(320);
-        root.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dcdcdc; -fx-border-width: 0 0 0 1;");
+        configureRoot();
+        buildPanel();
 
-        Label title = new Label("Styling");
-        title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-        root.getChildren().add(title);
-        root.getChildren().add(new Separator());
+        applyAll();
+    }
+
+    /**
+     * Configures the main panel layout.
+     */
+    private void configureRoot() {
+        root.setPadding(new Insets(PANEL_PADDING));
+        root.setPrefWidth(PANEL_WIDTH);
+
+        root.setStyle(
+                "-fx-background-color: #ffffff;" +
+                "-fx-border-color: #dcdcdc;" +
+                "-fx-border-width: 0 0 0 1;"
+        );
+    }
+
+    /**
+     * Builds the complete styling panel.
+     */
+    private void buildPanel() {
+        Label title = createTitle();
+
+        root.getChildren().addAll(
+                title,
+                new Separator()
+        );
 
         for (StyleFeature feature : features) {
             feature.setOnChange(this::applyAll);
+
             root.getChildren().add(feature.getView());
             root.getChildren().add(new Separator());
         }
 
+        root.getChildren().add(createResetButton());
+    }
+
+    /**
+     * Creates the panel title.
+     */
+    private Label createTitle() {
+        Label title = new Label("Styling");
+
+        title.setStyle(
+                "-fx-font-size: 18px;" +
+                "-fx-font-weight: bold;"
+        );
+
+        return title;
+    }
+
+    /**
+     * Creates the reset button.
+     */
+    private Button createResetButton() {
         Button resetButton = new Button("Reset to Default");
+
         resetButton.setMaxWidth(Double.MAX_VALUE);
-        resetButton.setOnAction(e -> resetAll());
-        root.getChildren().add(resetButton);
+        resetButton.setOnAction(event -> resetAll());
 
-        applyAll(); // paint the shape with defaults immediately
+        return resetButton;
     }
 
-    public VBox getView() {
-        return root;
-    }
-
+    /**
+     * Applies every styling feature to the target shape.
+     */
     private void applyAll() {
         for (StyleFeature feature : features) {
             feature.applyTo(target);
         }
     }
 
+    /**
+     * Resets every feature and reapplies the default styling.
+     */
     private void resetAll() {
         for (StyleFeature feature : features) {
             feature.resetToDefault();
         }
+
         applyAll();
+    }
+
+    /**
+     * Returns the JavaFX view representing this styling panel.
+     */
+    public VBox getView() {
+        return root;
     }
 }
