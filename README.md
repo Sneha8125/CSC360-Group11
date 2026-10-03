@@ -201,7 +201,7 @@ Team member names are placeholders; replace them with the real names.
 |--------|--------|------------------|
 | Member 1 – *name* | `feature/ui-layout` | Stage, Scene, main layout, control panel, preview area, labels, buttons, colour pickers, sliders, combo boxes, property display, tooltips, CSS, responsiveness |
 | Member 2 – *name* | `feature/object-transform` | Object model, the five shapes, object selection architecture, X/Y, width/height, rotation, scale, translation, center, flip |
-| Member 3 – *name* | `feature/styling-effects` | Fill, solid fill, linear gradient, radial gradient, stroke colour, stroke width, stroke style, opacity, drop shadow, glow |
+| Member 3 – Kunjal Agarwal | `feature/styling-effects` | Fill, solid fill, linear gradient, radial gradient, stroke color, stroke width, stroke style, opacity, drop shadow, glow |
 | Member 4 – *name* | `feature/interaction-integration` | Mouse selection, dragging, keyboard controls, Apply, Reset, validation, error handling, integration, testing, debugging |
 
 The file layout follows this split, so each member works mainly inside their own
