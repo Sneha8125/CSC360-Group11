@@ -6,21 +6,36 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Shape;
 
 /**
- * Feature: Opacity.
- * A 0-100% slider mapped onto the shape's opacity (0.0 - 1.0).
+ * Styling feature that controls the opacity of a JavaFX Shape.
+ *
+ * <p>The UI exposes opacity as a percentage from 0% to 100%,
+ * which is converted to JavaFX's 0.0 to 1.0 opacity range.</p>
  */
-public class OpacityControl implements StyleFeature {
+public final class OpacityControl implements StyleFeature {
 
+    private static final double MIN_OPACITY = 0.0;
+    private static final double MAX_OPACITY = 100.0;
     private static final double DEFAULT_OPACITY = 100.0;
 
-    private final Slider opacitySlider = UiUtil.slider(0, 100, DEFAULT_OPACITY);
+    private final Slider opacitySlider;
     private final VBox view;
 
     private Runnable onChange = () -> {};
 
     public OpacityControl() {
-        opacitySlider.valueProperty().addListener((obs, o, n) -> fireChange());
-        view = UiUtil.section("Opacity", UiUtil.labeledRow("Opacity %", opacitySlider));
+        opacitySlider = UiUtil.slider(
+                MIN_OPACITY,
+                MAX_OPACITY,
+                DEFAULT_OPACITY
+        );
+
+        opacitySlider.valueProperty()
+                .addListener((obs, oldValue, newValue) -> notifyChange());
+
+        view = UiUtil.section(
+                "Opacity",
+                UiUtil.labeledRow("Opacity %", opacitySlider)
+        );
     }
 
     @Override
@@ -30,7 +45,8 @@ public class OpacityControl implements StyleFeature {
 
     @Override
     public void applyTo(Shape shape) {
-        shape.setOpacity(opacitySlider.getValue() / 100.0);
+        double opacity = opacitySlider.getValue() / MAX_OPACITY;
+        shape.setOpacity(opacity);
     }
 
     @Override
@@ -40,10 +56,15 @@ public class OpacityControl implements StyleFeature {
 
     @Override
     public void setOnChange(Runnable onChange) {
-        this.onChange = onChange;
+        this.onChange = onChange != null
+                ? onChange
+                : () -> {};
     }
 
-    private void fireChange() {
+    /**
+     * Notifies the styling panel that this feature has changed.
+     */
+    private void notifyChange() {
         onChange.run();
     }
 }

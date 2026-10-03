@@ -4,24 +4,39 @@ import javafx.scene.Node;
 import javafx.scene.shape.Shape;
 
 /**
- * A single styling feature (fill, border, opacity, effects, ...).
- * Each implementation owns its own UI controls and knows how to:
- *   - render itself (getView)
- *   - apply its current settings onto a target shape (applyTo)
- *   - reset its controls to their default values (resetToDefault)
- *   - notify the panel when something changes (setOnChange)
+ * Defines a reusable styling feature for a JavaFX Shape.
+ *
+ * <p>Each implementation is responsible for its own UI controls,
+ * styling logic, default values, and change notifications.</p>
+ *
+ * <p>Examples include fill, border, opacity, and effects.</p>
  */
 public interface StyleFeature {
 
-    /** The UI section for this feature, to be placed in the styling panel. */
+    /**
+     * Returns the UI controls used to configure this feature.
+     *
+     * @return the feature's JavaFX view
+     */
     Node getView();
 
-    /** Apply this feature's current settings to the given shape. */
+    /**
+     * Applies the feature's current settings to the target shape.
+     *
+     * @param shape the shape to style
+     */
     void applyTo(Shape shape);
 
-    /** Reset this feature's controls back to their default values. */
+    /**
+     * Resets the feature's controls to their default values.
+     */
     void resetToDefault();
 
-    /** Register a callback to run whenever a control in this feature changes. */
+    /**
+     * Registers a callback that is invoked whenever the feature's
+     * styling settings change.
+     *
+     * @param onChange callback to invoke when the feature changes
+     */
     void setOnChange(Runnable onChange);
 }

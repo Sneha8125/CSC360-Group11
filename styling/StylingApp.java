@@ -9,29 +9,81 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
- * Entry point. Wires the single styled object (a Rectangle) together with
- * the StylingPanel, which owns all the individual feature controls.
+ * Entry point for the Object Styling application.
+ *
+ * Creates the target shape, the styling workspace, and the styling panel,
+ * then connects them together in the main application layout.
  */
-public class StylingApp extends Application {
+public final class StylingApp extends Application {
+
+    private static final double SHAPE_WIDTH = 220;
+    private static final double SHAPE_HEIGHT = 150;
+
+    private static final double CANVAS_PADDING = 40;
+    private static final double CANVAS_WIDTH = 420;
+
+    private static final double WINDOW_WIDTH = 800;
+    private static final double WINDOW_HEIGHT = 520;
 
     @Override
     public void start(Stage stage) {
-        Rectangle shape = new Rectangle(220, 150);
+
+        Rectangle shape = createShape();
+
+        StackPane canvas = createCanvas(shape);
+
+        StylingPanel stylingPanel = new StylingPanel(shape);
+
+        BorderPane root = new BorderPane();
+
+        root.setCenter(canvas);
+        root.setRight(stylingPanel.getView());
+
+        Scene scene = new Scene(
+                root,
+                WINDOW_WIDTH,
+                WINDOW_HEIGHT
+        );
+
+        configureStage(stage, scene);
+    }
+
+    /**
+     * Creates the shape that will be styled.
+     */
+    private Rectangle createShape() {
+        Rectangle shape = new Rectangle(
+                SHAPE_WIDTH,
+                SHAPE_HEIGHT
+        );
+
         shape.setArcWidth(12);
         shape.setArcHeight(12);
 
+        return shape;
+    }
+
+    /**
+     * Creates the workspace containing the target shape.
+     */
+    private StackPane createCanvas(Rectangle shape) {
         StackPane canvas = new StackPane(shape);
-        canvas.setPadding(new Insets(40));
-        canvas.setStyle("-fx-background-color: #f4f6f7;");
-        canvas.setPrefWidth(420);
 
-        StylingPanel panel = new StylingPanel(shape);
+        canvas.setPadding(new Insets(CANVAS_PADDING));
+        canvas.setPrefWidth(CANVAS_WIDTH);
 
-        BorderPane root = new BorderPane();
-        root.setCenter(canvas);
-        root.setRight(panel.getView());
+        canvas.setStyle(
+                "-fx-background-color: #f4f6f7;"
+        );
 
-        stage.setScene(new Scene(root, 800, 520));
+        return canvas;
+    }
+
+    /**
+     * Configures and displays the application window.
+     */
+    private void configureStage(Stage stage, Scene scene) {
+        stage.setScene(scene);
         stage.setTitle("Object Styling");
         stage.show();
     }
