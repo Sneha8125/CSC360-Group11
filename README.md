@@ -5,7 +5,7 @@
 
 ## Demo Video
 
-[![Demo Video](screenshots/demo.png)](https://your-video-link.com)
+[▶️ Watch the Project Demo](https://github.com/Sneha8125/CSC360-Group11/blob/main/docs/screenshots/Demo.mp4)
 
 ## Description
 
