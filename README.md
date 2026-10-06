@@ -3,6 +3,10 @@
 **Course:** CSC360 – Computer Graphics and Digital Image Processing
 **Assignment:** Write a JavaFX program with UI to style a single geometric object.
 
+## Demo Video
+
+[![Demo Video](screenshots/demo.png)](https://your-video-link.com)
+
 ## Description
 
 Geometric Object Styler is a JavaFX desktop application for working with **one**
