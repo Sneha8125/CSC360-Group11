@@ -3,7 +3,6 @@
 **Course:** CSC360 – Computer Graphics and Digital Image Processing
 **Assignment:** Write a JavaFX program with UI to style a single geometric object.
 
-## 🎥 Project Demo
 <h2>🎥 Project Demo</h2>
 
 <a href="https://github.com/Sneha8125/CSC360-Group11/issues/5#issue-5726176331">
