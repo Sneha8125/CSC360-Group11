@@ -4,8 +4,13 @@
 **Assignment:** Write a JavaFX program with UI to style a single geometric object.
 
 ## 🎥 Project Demo
+<h2>🎥 Project Demo</h2>
 
-[![Geometric Object Styler Demo](docs/screenshots/01-startup.png)](https://raw.githubusercontent.com/Sneha8125/CSC360-Group11/main/docs/screenshots/Demo.mp4)
+<a href="https://github.com/Sneha8125/CSC360-Group11/issues/5#issue-5726176331">
+  <img src="docs/screenshots/01-startup.png"
+       alt="Geometric Object Styler Demo"
+       width="700">
+</a>
 
 ## Description
 
