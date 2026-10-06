@@ -4,7 +4,6 @@
 **Assignment:** Write a JavaFX program with UI to style a single geometric object.
 
 ## 🎥 Project Demo
-
 <video src="https://github.com/Sneha8125/CSC360-Group11/blob/main/docs/screenshots/Demo.mp4" controls width="800"></video>
 
 ## Description
